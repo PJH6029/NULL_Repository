@@ -5,7 +5,7 @@ public class Bbs_problem {
 	private int bbsID;
 	private String userID;
 	private String bbsDate;
-	private byte[] bbsAnswer;
+	private String bbsAnswer;
 	private int bbsAvailable;
 	private String questionData;
 	private byte[] questionImage;
@@ -28,10 +28,10 @@ public class Bbs_problem {
 	public void setBbsDate(String bbsDate) {
 		this.bbsDate = bbsDate;
 	}
-	public byte[] getBbsAnswer() {
+	public String getBbsAnswer() {
 		return bbsAnswer;
 	}
-	public void setBbsAnswer(byte[] bbsAnswer) {
+	public void setBbsAnswer(String bbsAnswer) {
 		this.bbsAnswer = bbsAnswer;
 	}
 	public int getBbsAvailable() {

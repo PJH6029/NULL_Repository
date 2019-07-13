@@ -38,7 +38,7 @@ public class Bbs_problemDAO {
 	}
 	
 	public int getNext() {
-		String SQL = "SELECT bbsID FROM BBS ORDER BY bbsID DESC"; //마지막 글의 번호가져오는 것
+		String SQL = "SELECT bbsID FROM BBS_PROBLEM ORDER BY bbsID DESC"; //마지막 글의 번호가져오는 것
 		try {
 			PreparedStatement pstmt = conn.prepareStatement(SQL);
 			rs = pstmt.executeQuery();
@@ -108,21 +108,22 @@ public class Bbs_problemDAO {
 		
 	}
 	
-	public Bbs getBbs(int bbsID) {
-		String SQL = "SELECT * FROM BBS WHERE bbsID = ?"; 
+	public Bbs_problem getBbs_problem(int bbsID) {
+		String SQL = "SELECT * FROM BBS_PROBLEM WHERE bbsID = ?"; 
 		try {
 			PreparedStatement pstmt = conn.prepareStatement(SQL);
 			pstmt.setInt(1, bbsID);
 			rs = pstmt.executeQuery();
 			if(rs.next()) {
-				Bbs bbs = new Bbs();
-				bbs.setBbsID(rs.getInt(1));
-				bbs.setBbsTitle(rs.getString(2));
-				bbs.setUserID(rs.getString(3));
-				bbs.setBbsDate(rs.getString(4));
-				bbs.setBbsContent(rs.getString(5));
-				bbs.setBbsAvailable(rs.getInt(6));
-				return bbs;
+				Bbs_problem bbs_problem = new Bbs_problem();
+				bbs_problem.setBbsID(rs.getInt(1));
+				bbs_problem.setUserID(rs.getString(2));
+				bbs_problem.setBbsDate(rs.getString(3));
+				bbs_problem.setBbsAnswer(rs.getString(4));
+				bbs_problem.setBbsAvailable(rs.getInt(5));
+				bbs_problem.setQuestionData(rs.getString(6));
+				//블롭형 타입을 이미지로 전환하는 과정 필요함.
+				return bbs_problem;
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
