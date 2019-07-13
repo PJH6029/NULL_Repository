@@ -37,7 +37,7 @@ public class BbsDAO {
 		return ""; //데이터베이스 오류
 	}
 	
-	public int getNext() { //현재시간 가져옴
+	public int getNext() {
 		String SQL = "SELECT bbsID FROM BBS ORDER BY bbsID DESC"; //마지막 글의 번호가져오는 것
 		try {
 			PreparedStatement pstmt = conn.prepareStatement(SQL);
