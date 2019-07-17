@@ -1,10 +1,13 @@
 package bbs_problem;
 
+import java.io.FileInputStream;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
+
+import org.apache.tomcat.util.http.fileupload.ByteArrayOutputStream;
 
 public class Bbs_problemDAO {
 	
@@ -13,7 +16,7 @@ public class Bbs_problemDAO {
 	
 	public Bbs_problemDAO() {
 		try {
-			String dbURL = "jdbc:mysql://localhost:3306/BBS?serverTimezone=UTC";
+			String dbURL = "jdbc:mysql://localhost:3306/NULL2?serverTimezone=UTC";
 			String dbID = "root";
 			String dbPassword = "dhkd6029";
 			Class.forName("com.mysql.cj.jdbc.Driver");
@@ -52,16 +55,31 @@ public class Bbs_problemDAO {
 		return -1; //데이터베이스 오류
 	}
 	
-	public int write(String bbsTitle, String userID, String bbsContent) { //게시글넣는 함수
-		String SQL = "INSERT INTO BBS VALUE (?, ?, ?, ?, ?, ?)"; 
+	public int write(String bbsAnswer, String userID, String questionData, byte[] questionImage) { //게시글넣는 함수
+		String SQL = "INSERT INTO BBS_PROBLEM VALUE (?, ?, ?, ?, ?, ?, ?)"; 
 		try {
 			PreparedStatement pstmt = conn.prepareStatement(SQL);
+			//image to byte
+			ByteArrayOutputStream bout = new ByteArrayOutputStream();
+			FileInputStream fin = new FileInputStream(questionData);
+			
+			byte[] buf = new byte[1024];
+			int read = 0;
+			while((read=fin.read(buf, 0, buf.length))!=-1) {
+				bout.write(buf, 0, read);
+			}
+			fin.close();
+			
+			byte[] imageData = bout.toByteArray();
+			
+			
 			pstmt.setInt(1, getNext()); 
-			pstmt.setString(2, bbsTitle); 
-			pstmt.setString(3, userID); 
-			pstmt.setString(4, getDate()); 
-			pstmt.setString(5, bbsContent); 
-			pstmt.setInt(6, 1); 
+			pstmt.setString(2, userID); 
+			pstmt.setString(3, getDate()); 
+			pstmt.setString(4, bbsAnswer); 
+			pstmt.setInt(5, 1); 
+			pstmt.setString(6, questionData);
+			pstmt.setBytes(7, imageData);
 			return pstmt.executeUpdate();
 		} catch (Exception e) {
 			e.printStackTrace();
