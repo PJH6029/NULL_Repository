@@ -61,6 +61,7 @@
 						<input type="text" class="form-control" placeholder="이름" name="userName" maxlength="20">
 						<!-- name:서버프로그램에 사용 -->
 					</div>	
+					<!--  
 					<div class="form-group" style="text-align: center;">
 						<div class="btn-group" data-toggle="buttons">
 							<label class="btn btn-primary active">
@@ -83,6 +84,14 @@
 								<input type="radio" name="userGrade" autocomplete="off" value="3" checked>3
 							</label>
 						</div>
+					</div>	
+					-->
+					<div class="form-group">
+						<input type="text" class="form-control" placeholder="레벨" name="userLevel" maxlength="20">
+						<!-- name:서버프로그램에 사용 -->
+					</div>	<div class="form-group">
+						<input type="text" class="form-control" placeholder="그레이드" name="userGrade" maxlength="20">
+						<!-- name:서버프로그램에 사용 -->
 					</div>	
 					<input type="submit" class="btn btn-primary form-control" value="회원가입">
 				</form>

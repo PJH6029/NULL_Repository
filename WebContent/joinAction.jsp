@@ -40,7 +40,6 @@
 		} else{
 			UserDAO userDAO = new UserDAO();
 			int result = userDAO.join(user);
-			
 			if (result == -1){
 				PrintWriter script = response.getWriter();
 				script.println("<script>");

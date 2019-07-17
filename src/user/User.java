@@ -7,7 +7,6 @@ public class User {
 	private String userLevel;
 	private String userGrade;
 
-	
 	public String getUserID() {
 		return userID;
 	}
@@ -39,7 +38,7 @@ public class User {
 		this.userGrade = userGrade;
 	}
 
-	
+
 	
 	
 }
