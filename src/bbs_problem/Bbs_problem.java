@@ -10,8 +10,8 @@ public class Bbs_problem {
 	private String questionYear;
 	private String questionMonth;
 	private String questionType;
-	private String questionNumber;
 	private String questionSubject;
+	private String questionNumber;
 	private int questionCorrect;
 	private String questionAnswer;
 	private byte[] questionImage;
@@ -64,17 +64,17 @@ public class Bbs_problem {
 	public void setQuestionType(String questionType) {
 		this.questionType = questionType;
 	}
-	public String getQuestionNumber() {
-		return questionNumber;
-	}
-	public void setQuestionNumber(String questionNumber) {
-		this.questionNumber = questionNumber;
-	}
 	public String getQuestionSubject() {
 		return questionSubject;
 	}
 	public void setQuestionSubject(String questionSubject) {
 		this.questionSubject = questionSubject;
+	}
+	public String getQuestionNumber() {
+		return questionNumber;
+	}
+	public void setQuestionNumber(String questionNumber) {
+		this.questionNumber = questionNumber;
 	}
 	public int getQuestionCorrect() {
 		return questionCorrect;
