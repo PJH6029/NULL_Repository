@@ -98,13 +98,15 @@
 		<form action="study.jsp" method="get">
 			<label>출처
             <select name = "source">
-            	<option value = "school">내신기출</option>
-                <option value = "mock">모의고사</option> 
+            	<option value = "">전체</option>
+            	<option value = "0">내신기출</option>
+                <option value = "1">모의고사</option> 
             </select>
             </label>
             &emsp;&emsp;&emsp;
             <label>
             <select name = "year">
+            	<option value = "">전체</option>
             	<option value = "2019">2019</option>
                 <option value = "2018">2018</option>
                 <option value = "2017">2017</option> 
@@ -114,23 +116,25 @@
             &emsp;&emsp;&emsp;
             <label>
             <select name = "month">
+            	<option value = "">전체</option>
             	<option value = "11">11</option>
                 <option value = "10">10</option>
-                <option value = "9">9</option>
-                <option value = "7">7</option>
-                <option value = "6">6</option>
-                <option value = "4">4</option>
-                <option value = "3">3</option> 
+                <option value = "09">9</option>
+                <option value = "07">7</option>
+                <option value = "06">6</option>
+                <option value = "04">4</option>
+                <option value = "03">3</option> 
             </select>
 			월
             </label>
            	&emsp;&emsp;&emsp;
-           	가형<input type = "radio" name = "type" value="가"/>
+           	가형<input type = "radio" name = "type" value="1"/>
            	&nbsp;
-           	나형<input type = "radio" name = "type" value="나"/>
+           	나형<input type = "radio" name = "type" value="0"/>
 			&emsp;&emsp;&emsp;
 			<label>과목
             <select name = "subject">
+            	<option value = "">전체</option>
             	<option value = "미1">미적분</option>
                 <option value = "기벡">기하와 벡터</option>
                 <option value = "확통">확률과 통계</option>
@@ -198,7 +202,7 @@
 			%>
 				<a href = "study.jsp?pageNumber=<%=pageNumber - 1 %>" class = "btn btn-success btn-arrow-left">이전</a>
 			<%
-				} if(bbs_problemDAO.nextPage(pageNumber + 1)){
+				} if(bbs_problemDAO.nextPage(pageNumber + 1, source, year, month, type, subject, number, correct)){
 			%>
 				<a href = "study.jsp?pageNumber=<%=pageNumber + 1 %>" class = "btn btn-success btn-arrow-left">다음</a>
 			<%
