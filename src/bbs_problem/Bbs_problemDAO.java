@@ -42,6 +42,7 @@ public class Bbs_problemDAO {
 		return ""; //데이터베이스 오류
 	}
 	
+	//이중훈
 	public int getNext() {
 		String SQL = "SELECT bbsID FROM BBS_PROBLEM ORDER BY bbsID DESC"; //마지막 글의 번호가져오는 것
 		try {
@@ -56,7 +57,7 @@ public class Bbs_problemDAO {
 		}
 		return -1; //데이터베이스 오류
 	}
-	
+	/*
 	public int write(String userID, String questionSource, String questionYear, String questionMonth, String questionType, 
 					String questionNumber, String questionSubject, int questionCorrect, String questionAnswer, byte[] questionImage) { 
 		String SQL = "INSERT INTO BBS_PROBLEM VALUE (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)"; 
@@ -89,7 +90,8 @@ public class Bbs_problemDAO {
 		}
 		return -1; //데이터베이스 오류
 	}
-	
+	*/
+	//이중훈
 	public ArrayList<Bbs> getList(int pageNumber) { // 10개만 출력해서 보여줌
 		String SQL = "SELECT * FROM BBS WHERE bbsID < ? AND bbsAvailable = 1 ORDER BY bbsID DESC LIMIT 10"; 
 		ArrayList<Bbs> list = new ArrayList<Bbs>();
@@ -140,9 +142,15 @@ public class Bbs_problemDAO {
 				bbs_problem.setBbsID(rs.getInt(1));
 				bbs_problem.setUserID(rs.getString(2));
 				bbs_problem.setBbsDate(rs.getString(3));
-				bbs_problem.setBbsAnswer(rs.getString(4));
-				bbs_problem.setBbsAvailable(rs.getInt(5));
-				bbs_problem.setQuestionData(rs.getString(6));
+				bbs_problem.setBbsAvailable(rs.getInt(4));
+				bbs_problem.setQuestionSource(rs.getString(5));
+				bbs_problem.setQuestionYear(rs.getString(6));
+				bbs_problem.setQuestionMonth(rs.getString(7));
+				bbs_problem.setQuestionType(rs.getString(8));
+				bbs_problem.setQuestionNumber(rs.getString(9));
+				bbs_problem.setQuestionSubject(rs.getString(10));
+				bbs_problem.setQuestionCorrect(rs.getInt(11));
+				bbs_problem.setQuestionAnswer(rs.getString(12));
 				//블롭형 타입을 이미지로 전환하는 과정 필요함.
 				return bbs_problem;
 			}
