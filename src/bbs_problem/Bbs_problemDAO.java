@@ -9,6 +9,8 @@ import java.util.ArrayList;
 
 import org.apache.tomcat.util.http.fileupload.ByteArrayOutputStream;
 
+import bbs.Bbs;
+
 public class Bbs_problemDAO {
 	
 	private Connection conn;
@@ -55,13 +57,14 @@ public class Bbs_problemDAO {
 		return -1; //데이터베이스 오류
 	}
 	
-	public int write(String bbsAnswer, String userID, String questionData, byte[] questionImage) { //게시글넣는 함수
-		String SQL = "INSERT INTO BBS_PROBLEM VALUE (?, ?, ?, ?, ?, ?, ?)"; 
+	public int write(String userID, String questionSource, String questionYear, String questionMonth, String questionType, 
+					String questionNumber, String questionSubject, int questionCorrect, String questionAnswer, byte[] questionImage) { 
+		String SQL = "INSERT INTO BBS_PROBLEM VALUE (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)"; 
 		try {
 			PreparedStatement pstmt = conn.prepareStatement(SQL);
 			//image to byte
 			ByteArrayOutputStream bout = new ByteArrayOutputStream();
-			FileInputStream fin = new FileInputStream(questionData);
+			FileInputStream fin = new FileInputStream();
 			
 			byte[] buf = new byte[1024];
 			int read = 0;
