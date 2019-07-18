@@ -9,6 +9,7 @@ public class UserDAO {
 	private Connection conn;
 	private PreparedStatement pstmt;
 	private ResultSet rs;
+	
 	//DAO = database access object
 	public UserDAO() {
 		try {
@@ -50,7 +51,7 @@ public class UserDAO {
 			pstmt.setString(1, user.getUserID());
 			pstmt.setString(2, user.getUserPassword());
 			pstmt.setString(3, user.getUserName());
-			pstmt.setString(4, user.getUserLevel()); 
+			pstmt.setString(4, "0"); 
 			pstmt.setString(5, user.getUserGrade());
 			
 			
