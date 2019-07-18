@@ -57,7 +57,7 @@ public class Bbs_problemDAO {
 		}
 		return -1; //데이터베이스 오류
 	}
-	/*
+	
 	public int write(String userID, String questionSource, String questionYear, String questionMonth, String questionType, 
 					String questionNumber, String questionSubject, int questionCorrect, String questionAnswer, byte[] questionImage) { 
 		String SQL = "INSERT INTO BBS_PROBLEM VALUE (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)"; 
@@ -65,7 +65,7 @@ public class Bbs_problemDAO {
 			PreparedStatement pstmt = conn.prepareStatement(SQL);
 			//image to byte
 			ByteArrayOutputStream bout = new ByteArrayOutputStream();
-			FileInputStream fin = new FileInputStream();
+			FileInputStream fin = new FileInputStream(~~~ );
 			
 			byte[] buf = new byte[1024];
 			int read = 0;
@@ -80,17 +80,23 @@ public class Bbs_problemDAO {
 			pstmt.setInt(1, getNext()); 
 			pstmt.setString(2, userID); 
 			pstmt.setString(3, getDate()); 
-			pstmt.setString(4, bbsAnswer); 
-			pstmt.setInt(5, 1); 
-			pstmt.setString(6, questionData);
-			pstmt.setBytes(7, imageData);
+			pstmt.setInt(4, 1); 
+			pstmt.setString(5, questionSource); 
+			pstmt.setString(6, questionYear);
+			pstmt.setString(7, questionMonth);
+			pstmt.setString(8, questionType);
+			pstmt.setString(9, questionNumber);
+			pstmt.setString(10, questionSubject);
+			pstmt.setInt(11, questionCorrect);
+			pstmt.setString(13, questionAnswer);
+			//이미지 13번
 			return pstmt.executeUpdate();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		return -1; //데이터베이스 오류
 	}
-	*/
+	
 	//이중훈
 	public ArrayList<Bbs> getList(int pageNumber) { // 10개만 출력해서 보여줌
 		String SQL = "SELECT * FROM BBS WHERE bbsID < ? AND bbsAvailable = 1 ORDER BY bbsID DESC LIMIT 10"; 
