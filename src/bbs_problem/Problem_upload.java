@@ -3,6 +3,7 @@ package bbs_problem;
 import java.io.File;
 import java.io.FileInputStream;
 import java.sql.Connection;
+import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 
@@ -11,10 +12,22 @@ import org.apache.tomcat.util.http.fileupload.ByteArrayOutputStream;
 public class Problem_upload {
 	
 
-	private Connection conn;
-	private ResultSet rs;
+	static private Connection conn;
+	static private ResultSet rs;
 	
-	public String getDate() { //현재시간 가져옴
+	public static void open() {
+		try {
+			String dbURL = "jdbc:mysql://localhost:3306/NULL2?serverTimezone=UTC";
+			String dbID = "root";
+			String dbPassword = "dhkd6029";
+			Class.forName("com.mysql.cj.jdbc.Driver");
+			conn = DriverManager.getConnection(dbURL, dbID, dbPassword);
+		} catch(Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
+	public static String getDate() { //현재시간 가져옴
 		String SQL = "SELECT NOW()"; //현재시간
 		try {
 			PreparedStatement pstmt = conn.prepareStatement(SQL);
@@ -28,8 +41,8 @@ public class Problem_upload {
 		return ""; //데이터베이스 오류
 	}
 	
-	public int write(int bbsID, String userID, String questionSource, String questionYear, String questionMonth, String questionType, 
-			String questionSubject, String questionNumber, int questionCorrect, String questionAnswer, byte[] questionImage, String filepath) { 
+	public static int write(int bbsID, String userID, String questionSource, String questionYear, String questionMonth, String questionType, 
+			String questionSubject, String questionNumber, int questionCorrect, String questionAnswer, String filepath) { 
 		String SQL = "INSERT INTO BBS_PROBLEM VALUE (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)"; 
 		try {
 			PreparedStatement pstmt = conn.prepareStatement(SQL);
@@ -45,7 +58,7 @@ public class Problem_upload {
 			fin.close();
 			
 			byte[] imageData = bout.toByteArray();
-			
+			bout.close();
 			
 			pstmt.setInt(1, bbsID); 
 			pstmt.setString(2, userID); 
@@ -59,7 +72,7 @@ public class Problem_upload {
 			pstmt.setString(10, questionNumber);
 			pstmt.setInt(11, questionCorrect);
 			pstmt.setString(12, questionAnswer);
-			//이미지 13번
+			pstmt.setBytes(13, imageData);
 			return pstmt.executeUpdate();
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -68,22 +81,39 @@ public class Problem_upload {
 		}
 
 	public static void main(String[] args) {
-		String userID = "top321902";
-		String filepath = "./problem_images/1 2018 11 0 확통 18 42 003.jpg";
+		String Imagepath = "/problem_images/1 2018 11 0 확통 18 42 003.JPG";
 		
-		File f = new File(filepath);
+		File f = new File(Imagepath);
+		System.out.println(f.isDirectory()); // false
+		System.out.println(f.isFile()); // false
 		String path = "";
 		String filename = "";
 		path = f.getParentFile().toString();
 		filename = f.getName();
 		filename = filename.substring(0, filename.length()-4);
-		
+		System.out.println(filename);
 		String[] file_array = filename.split(" ");
-		for(int i=0;i<file_array.length;i++) {
-			System.out.println(file_array[i]);
-			}
-
 		
+		for(int i=0; i<file_array.length; i++) {
+			System.out.println(file_array[i]);
+		}
+		
+		int bbsID = 1; 
+		String userID = "top321902";
+		String questionSource = file_array[0];
+		String questionYear = file_array[1];
+		String questionMonth = file_array[2];
+		String questionType = file_array[3];
+		String questionSubject = file_array[4];
+		String questionNumber = file_array[5];
+		int questionCorrect = Integer.parseInt(file_array[6]);
+		String questionAnswer = file_array[7];
+		String filepath = path ;
+		
+		open();
+		write(bbsID, userID, questionSource, questionYear, questionMonth, questionType,
+			  questionSubject, questionNumber, questionCorrect, questionAnswer, filepath);
+		System.out.println("upload complete");
 
 	}
 

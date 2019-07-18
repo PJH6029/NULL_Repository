@@ -109,7 +109,7 @@ public class Bbs_problemDAO {
 			pstmt.setString(10, questionNumber);
 			pstmt.setInt(11, questionCorrect);
 			pstmt.setString(12, questionAnswer);
-			//이미지 13번
+			pstmt.setBytes(13, imageData);
 			return pstmt.executeUpdate();
 		} catch (Exception e) {
 			e.printStackTrace();
