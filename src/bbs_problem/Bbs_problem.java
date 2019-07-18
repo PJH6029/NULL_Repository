@@ -5,9 +5,15 @@ public class Bbs_problem {
 	private int bbsID;
 	private String userID;
 	private String bbsDate;
-	private String bbsAnswer;
 	private int bbsAvailable;
-	private String questionData;
+	private String questionSource;
+	private String questionYear;
+	private String questionMonth;
+	private String questionType;
+	private String questionNumber;
+	private String questionSubject;
+	private int questionCorrect;
+	private String questionAnswer;
 	private byte[] questionImage;
 	
 	public int getBbsID() {
@@ -28,23 +34,59 @@ public class Bbs_problem {
 	public void setBbsDate(String bbsDate) {
 		this.bbsDate = bbsDate;
 	}
-	public String getBbsAnswer() {
-		return bbsAnswer;
-	}
-	public void setBbsAnswer(String bbsAnswer) {
-		this.bbsAnswer = bbsAnswer;
-	}
 	public int getBbsAvailable() {
 		return bbsAvailable;
 	}
 	public void setBbsAvailable(int bbsAvailable) {
 		this.bbsAvailable = bbsAvailable;
 	}
-	public String getQuestionData() {
-		return questionData;
+	public String getQuestionSource() {
+		return questionSource;
 	}
-	public void setQuestionData(String questionData) {
-		this.questionData = questionData;
+	public void setQuestionSource(String questionSource) {
+		this.questionSource = questionSource;
+	}
+	public String getQuestionYear() {
+		return questionYear;
+	}
+	public void setQuestionYear(String questionYear) {
+		this.questionYear = questionYear;
+	}
+	public String getQuestionMonth() {
+		return questionMonth;
+	}
+	public void setQuestionMonth(String questionMonth) {
+		this.questionMonth = questionMonth;
+	}
+	public String getQuestionType() {
+		return questionType;
+	}
+	public void setQuestionType(String questionType) {
+		this.questionType = questionType;
+	}
+	public String getQuestionNumber() {
+		return questionNumber;
+	}
+	public void setQuestionNumber(String questionNumber) {
+		this.questionNumber = questionNumber;
+	}
+	public String getQuestionSubject() {
+		return questionSubject;
+	}
+	public void setQuestionSubject(String questionSubject) {
+		this.questionSubject = questionSubject;
+	}
+	public int getQuestionCorrect() {
+		return questionCorrect;
+	}
+	public void setQuestionCorrect(int questionCorrect) {
+		this.questionCorrect = questionCorrect;
+	}
+	public String getQuestionAnswer() {
+		return questionAnswer;
+	}
+	public void setQuestionAnswer(String questionAnswer) {
+		this.questionAnswer = questionAnswer;
 	}
 	public byte[] getQuestionImage() {
 		return questionImage;
@@ -53,6 +95,4 @@ public class Bbs_problem {
 		this.questionImage = questionImage;
 	}
 
-	
-	
 }
