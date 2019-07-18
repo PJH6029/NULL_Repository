@@ -108,7 +108,7 @@ public class Bbs_problemDAO {
 			pstmt.setString(9, questionSubject);
 			pstmt.setString(10, questionNumber);
 			pstmt.setInt(11, questionCorrect);
-			pstmt.setString(13, questionAnswer);
+			pstmt.setString(12, questionAnswer);
 			//이미지 13번
 			return pstmt.executeUpdate();
 		} catch (Exception e) {
