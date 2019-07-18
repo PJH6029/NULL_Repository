@@ -202,7 +202,7 @@
 			%>
 				<a href = "study.jsp?pageNumber=<%=pageNumber - 1 %>" class = "btn btn-success btn-arrow-left">이전</a>
 			<%
-				} if(bbs_problemDAO.nextPage(pageNumber + 1, source, year, month, type, subject, number, correct)){
+				} if(bbs_problemDAO.nextPage(pageNumber, source, year, month, type, subject, number, correct)){
 			%>
 				<a href = "study.jsp?pageNumber=<%=pageNumber + 1 %>" class = "btn btn-success btn-arrow-left">다음</a>
 			<%
