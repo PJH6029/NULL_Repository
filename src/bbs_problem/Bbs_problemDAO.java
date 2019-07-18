@@ -43,10 +43,29 @@ public class Bbs_problemDAO {
 	}
 	
 	//이중훈
-	public int getNext() {
-		String SQL = "SELECT bbsID FROM BBS_PROBLEM ORDER BY bbsID DESC"; //마지막 글의 번호가져오는 것
+
+	public int getNext(String source, String year, String month, String type, String subject, String number, String correct) {
+		StringBuffer SQL = new StringBuffer();
+		SQL.append("SELECT COUNT(*) FROM bbs_problem WHERE bbsAvailable=1");
+		if(!source.equals("")) {SQL.append(" and questionSource in(?)");}
+		if(!year.equals("")) {SQL.append(" and questionYear in(?)");}
+		if(!month.equals("")) {SQL.append(" and questionMonth in(?)");}
+		if(!type.equals("")) {SQL.append(" and questionType in(?)");}
+		if(!subject.equals("")) {SQL.append(" and questionSubject in(?)");}
+		if(!number.equals("")) {SQL.append(" and questionNumber in(?)");}
+		if(!correct.equals("")) {SQL.append(" and questionCorrect in(?)");}
+		SQL.append(" ORDER BY bbsID DESC");
+		
 		try {
-			PreparedStatement pstmt = conn.prepareStatement(SQL);
+			PreparedStatement pstmt = conn.prepareStatement(SQL.toString());
+			int i=1;
+			if(!source.equals("")) {pstmt.setString(i,source); i++;}
+			if(!year.equals("")) {pstmt.setString(i,year); i++;}
+			if(!month.equals("")) {pstmt.setString(i,month); i++;}
+			if(!type.equals("")) {pstmt.setString(i,type); i++;}
+			if(!subject.equals("")) {pstmt.setString(i,subject); i++;}
+			if(!number.equals("")) {pstmt.setString(i,number); i++;}
+			if(!correct.equals("")) {pstmt.setInt(i,Integer.parseInt(correct)); i++;}
 			rs = pstmt.executeQuery();
 			if(rs.next()) {
 				return rs.getInt(1) + 1;
@@ -54,9 +73,10 @@ public class Bbs_problemDAO {
 			return 1; //첫번째 게시물인 경우
 		} catch (Exception e) {
 			e.printStackTrace();
-		}
+		} 
 		return -1; //데이터베이스 오류
 	}
+	
 	
 	public int write(String userID, String questionSource, String questionYear, String questionMonth, String questionType, 
 					String questionNumber, String questionSubject, int questionCorrect, String questionAnswer, byte[] questionImage) { 
