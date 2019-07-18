@@ -95,7 +95,7 @@
 	</nav>
 	
 	<div id="searchbox">
-		<form name="search" action="study.jsp" method="post">
+		<form action="study.jsp" method="get">
 			<label>출처
             <select name = "source">
             	<option value = "school">내신기출</option>
@@ -125,9 +125,9 @@
 			월
             </label>
            	&emsp;&emsp;&emsp;
-           	가형<input type = "radio" name = "type" />
+           	가형<input type = "radio" name = "type" value="가"/>
            	&nbsp;
-           	나형<input type = "radio" name = "type" />
+           	나형<input type = "radio" name = "type" value="나"/>
 			&emsp;&emsp;&emsp;
 			<label>과목
             <select name = "subject">
@@ -139,16 +139,29 @@
             </label>
             &emsp;&emsp;&emsp;
             <label>번호
-            <input type="text" placeholder="번호" name="번호" maxlength="2" style="width:30px"> 
+            <input type="text" placeholder="번호" name="number" maxlength="2" style="width:30px"> 
             </label>
             &emsp;&emsp;&emsp;
             <label>정답률(%)
-            <input type="text" placeholder="%" name="정답률" maxlength="2" style="width:30px"> 
+            <input type="text" placeholder="%" name="correct" maxlength="2" style="width:30px"> 
             </label>
             &emsp;&emsp;&emsp;
             <input type = "submit" value = "검색"/>
 		</form>
 	</div>
+	
+	<%
+	String source = request.getParameter("source")==null?"":request.getParameter("source");
+	String year = request.getParameter("year")==null?"":request.getParameter("year");
+	String month = request.getParameter("month")==null?"":request.getParameter("month");
+	String type = request.getParameter("type")==null?"":request.getParameter("type");
+	String subject = request.getParameter("subject")==null?"":request.getParameter("subject");
+	String number = request.getParameter("number")==null?"":request.getParameter("number");
+	String correct = request.getParameter("correct")==null?"":request.getParameter("correct");
+	%>
+	
+	
+	
 	
 	<div class="contaioner">
 		<div class="row">
@@ -165,14 +178,13 @@
 				<tbody>
 					<%
 					    Bbs_problemDAO bbs_problemDAO = new Bbs_problemDAO();
-					    ArrayList<Bbs_problem> list = bbs_problemDAO.getList(pageNumber);
+					    ArrayList<Bbs_problem> list = bbs_problemDAO.getList(pageNumber, source, year, month, type, subject, number, correct);
 					    for(int i = 0; i < list.size(); i++){
 					%>
 					<tr>
 						<td><%= list.get(i).getBbsID() %></td>
-					    <%-- <td><a href="view.jsp?bbsID=<%= list.get(i).getBbsID()%>"><%=list.get(i).getBbsTitle().replaceAll(" ", "&nbsp;").replaceAll("<", "&lt;").replaceAll(">", "&gt;").replaceAll("\n", "<br>") %></a></td> --%>
-					    <td><a href="view.jsp?bbsID=<%= list.get(i).getBbsID()%>"><%= list.get(i).getQuestionData().substring(12,14) + "   " + list.get(i).getQuestionData().substring(2,6) + "년 " + list.get(i).getQuestionData().substring(7,9) + "월 "+ list.get(i).getQuestionData().substring(15,17) + "번"%></a></td>
-					    <td><%= list.get(i).getQuestionData().substring(18,20) %></td>
+					    <td><a href="view.jsp?bbsID=<%= list.get(i).getBbsID()%>"><%= list.get(i).getQuestionSubject() + "   " + list.get(i).getQuestionYear() + "년 " + list.get(i).getQuestionMonth() + "월 "+ list.get(i).getQuestionNumber() + "번"%></a></td>
+					    <td><%= list.get(i).getQuestionCorrect() %></td>
 					    <td><%= list.get(i).getUserID() %></td>
 					    <td><%= list.get(i).getBbsDate().substring(0,11)+list.get(i).getBbsDate().substring(11,13) + "시" + list.get(i).getBbsDate().substring(14,16) + "분"%></td>
 					</tr>
