@@ -66,7 +66,6 @@ public class Problem_upload {
 			pstmt.setInt(1, bbsID); 
 			pstmt.setString(2, userID); 
 			pstmt.setString(3, getDate()); 
-			/*
 			pstmt.setInt(4, 1); 
 			pstmt.setString(5, questionSource); 
 			pstmt.setString(6, questionYear);
@@ -77,7 +76,7 @@ public class Problem_upload {
 			pstmt.setInt(11, questionCorrect); 
 			pstmt.setString(12, questionAnswer);
 			pstmt.setBytes(13, imageData);
-			*/
+			
 			pstmt.executeUpdate();
 			pstmt.close();
 			conn.close();
