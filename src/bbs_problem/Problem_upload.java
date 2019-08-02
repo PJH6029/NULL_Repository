@@ -31,8 +31,8 @@ public class Problem_upload {
 	public static String getDate() { //현재시간 가져옴
 		String SQL = "SELECT NOW()"; //현재시간
 		try {
-			pstmt = conn.prepareStatement(SQL);
-			rs = pstmt.executeQuery();
+			PreparedStatement pstmt_ = conn.prepareStatement(SQL);
+			rs = pstmt_.executeQuery();
 			if(rs.next()) {
 				return rs.getString(1);
 			}
@@ -46,17 +46,7 @@ public class Problem_upload {
 			String questionSubject, String questionNumber, int questionCorrect, String questionAnswer, String filepath) { 
 		String SQL = "INSERT INTO BBS_PROBLEM VALUE (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)"; 
 		try {
-			System.out.println(bbsID);
-			System.out.println(userID);
-			System.out.println(questionSource);
-			System.out.println(questionYear);
-			System.out.println(questionMonth);
-			System.out.println(questionType);
-			System.out.println(questionSubject);
-			System.out.println(questionNumber);
-			System.out.println(questionCorrect);
-			System.out.println(questionAnswer);
-			System.out.println(filepath);
+			System.out.println(getDate());
 
 			pstmt = conn.prepareStatement(SQL);
 			//image to byte
@@ -72,10 +62,11 @@ public class Problem_upload {
 			
 			byte[] imageData = bout.toByteArray();
 			bout.close();
-			
+		
 			pstmt.setInt(1, bbsID); 
 			pstmt.setString(2, userID); 
 			pstmt.setString(3, getDate()); 
+			/*
 			pstmt.setInt(4, 1); 
 			pstmt.setString(5, questionSource); 
 			pstmt.setString(6, questionYear);
@@ -86,6 +77,7 @@ public class Problem_upload {
 			pstmt.setInt(11, questionCorrect); 
 			pstmt.setString(12, questionAnswer);
 			pstmt.setBytes(13, imageData);
+			*/
 			pstmt.executeUpdate();
 			pstmt.close();
 			conn.close();
