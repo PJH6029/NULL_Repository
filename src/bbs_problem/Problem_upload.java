@@ -91,8 +91,8 @@ public class Problem_upload {
 		String Imagepath = "problem_images/1%2018%11%0%Θ®Ελ%18%42%003.JPG";
 		
 		File f = new File(Imagepath);
-		System.out.println(f.isDirectory()); // false
-		System.out.println(f.isFile()); // false
+		System.out.println(f.isDirectory()); 
+		System.out.println(f.isFile()); 
 		String path = "";
 		String filename = "";
 		path = f.getParentFile().toString();
