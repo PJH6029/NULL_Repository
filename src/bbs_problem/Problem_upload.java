@@ -120,6 +120,7 @@ public class Problem_upload {
 		open();
 		write(bbsID, userID, questionSource, questionYear, questionMonth, questionType,
 			  questionSubject, questionNumber, questionCorrect, questionAnswer, filepath);
+			  
 		System.out.println("upload complete");
 
 	}
