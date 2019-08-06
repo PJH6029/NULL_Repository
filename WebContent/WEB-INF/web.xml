@@ -11,12 +11,12 @@
   </welcome-file-list>
   
   <servlet>
-  <servlet-name>Name</servlet-name> 
+  <servlet-name>Viewer_practice</servlet-name> 
   <servlet-class>practice.Viewer_practice</servlet-class> 
   </servlet>
   
   <servlet-mapping>
-  <servlet-name>Name</servlet-name> 
-  <url-pattern>*.do</url-pattern>  
+  <servlet-name>Viewer_practice</servlet-name> 
+  <url-pattern>/Viewer_practice</url-pattern>  
   </servlet-mapping>
 </web-app>

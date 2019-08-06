@@ -9,16 +9,8 @@ pageEncoding="EUC-KR"%>
 <body><br><br>
 <h3>Servlet을 이용하여 Database에 저장된 BLOB 데이터를 브라우저에 출력하는 예</h3>
 
-<img src="../src/practice.Viewer_practice">
-<% 
+<img src="WEB-INF/classes/practice.Viewer_practice">
 
-String Imagepath = "../problem_images/";
-
-File f = new File(Imagepath);
-System.out.println(f.isDirectory()); 
-System.out.println(f.isFile()); 
-
-%>
 
 
 </body>
