@@ -100,7 +100,7 @@
 				<tbody>
 					<tr>
 						<td style="width: 20%;">글 제목</td>
-						<td colspan="2"><%= bbs.getBbsTitle().replaceAll(" ", "&nbsp;").replaceAll("<","&lt;").replaceAll("<", "&gt;").replaceAll("\n", "<br>") %></td>
+						<td colspan="2"><%= bbs_problem.getBbsTitle().replaceAll(" ", "&nbsp;").replaceAll("<","&lt;").replaceAll("<", "&gt;").replaceAll("\n", "<br>") %></td>
 					</tr>
 					<tr>
 						<td>작성자</td>

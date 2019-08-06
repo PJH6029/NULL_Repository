@@ -1,16 +1,13 @@
 package practice;
 
-import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.io.InputStream;
-import java.sql.Blob;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.sql.Statement;
+import java.sql.SQLException;
 
-import javax.imageio.ImageIO;
 import javax.servlet.ServletException;
 import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServlet;
@@ -19,47 +16,68 @@ import javax.servlet.http.HttpServletResponse;
 
 public class Viewer_practice extends HttpServlet {
 
-protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-	System.out.println("hello");
-	response.setContentType("image/jpg"); 
-	Connection conn = null;
-	PreparedStatement pstmt = null;
-	ServletOutputStream out = response.getOutputStream();
-	String jdbc_driver = "com.mysql.cj.jdbc.Driver";
-	String db_url = "jdbc:mysql://localhost:3306/PRACTICE?serverTimezone=UTC";
-
-	try{
-		Class.forName(jdbc_driver);
-		conn = DriverManager.getConnection(db_url,"root","dhkd6029");
-		
-		Statement stmt = conn.createStatement();
-		ResultSet rs = stmt.executeQuery("SELECT * FROM mytable");
-		if (rs.next()) {
-			System.out.println("we are here");
-			Blob image = rs.getBlob(1);
-			InputStream in = rs.getBinaryStream("bfile");
-			//BufferedImage bimg = ImageIO.read(in);
-			
-			int length = (int) image.length();
-			int bufferSize = 1024;
-			byte[] buffer = new byte[bufferSize];
-			while ((length = in.read(buffer)) != -1) {
-				out.write(buffer, 0, length);
-			}
-			in.close();
-			out.flush();
-			
-			//ServletOutputStream sos = response.getOutputStream();
-			
-			//ImageIO.write(bimg, "jpg", sos);
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		System.out.println("hello");
+		String[] bkeyStr = request.getParameterValues("bkey"); // 파라미터 가져와서 조회
+		for(String num : bkeyStr) {
+			System.out.println(num);
 		}
-		rs.close();
-		stmt.close();
-		conn.close();
-	
-	}
-	catch(Exception e) {
-		System.err.println(e);
-	}
+		int bkey = 0;
+		if(bkeyStr != null) {
+			bkey = Integer.parseInt(bkeyStr[0]);
+		}
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		ServletOutputStream out = null;
+		String jdbc_driver = "com.mysql.cj.jdbc.Driver";
+		String db_url = "jdbc:mysql://localhost:3306/PRACTICE?serverTimezone=UTC";
+
+		InputStream is = null;
+		try {
+			Class.forName(jdbc_driver);
+			conn = DriverManager.getConnection(db_url, "root", "dhkd6029");
+
+			pstmt = conn.prepareStatement("SELECT BFILE FROM mytable where bkey = ?");
+			pstmt.setInt(1, bkey);
+			rs = pstmt.executeQuery();
+			out = response.getOutputStream();
+			if (rs.next()) {
+				System.out.println("we are here");
+				is = rs.getBinaryStream("bfile");
+
+				int read;
+				while ((read = is.read()) != -1) {
+					out.write(read);
+				}
+				out.flush();
+			}
+
+		} catch (Exception e) {
+			System.out.println("Exception");
+			System.out.println(e.getLocalizedMessage());
+			e.printStackTrace();
+		} finally {
+			if(out != null) {
+				try { out.close(); } catch(IOException ie) {}
+			}
+
+			if(is != null) {
+				try { is.close(); } catch(IOException ie) {}
+			}
+			
+			if(rs != null) {
+				try { rs.close(); } catch(SQLException se) {}
+			}
+			
+			if(pstmt != null) {
+				try { pstmt.close(); } catch(SQLException se) {}
+			}
+			
+			if(conn != null) {
+				try { conn.close(); } catch(SQLException se) {}
+			}
+			System.out.println("Finally");
+		}
 	}
 }

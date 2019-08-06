@@ -9,7 +9,7 @@ pageEncoding="EUC-KR"%>
 <body><br><br>
 <h3>Servlet을 이용하여 Database에 저장된 BLOB 데이터를 브라우저에 출력하는 예</h3>
 
-<img src="WEB-INF/classes/practice.Viewer_practice">
+<img src="/NULL/Viewer_practice?bkey=1">
 
 
 

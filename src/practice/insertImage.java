@@ -8,7 +8,6 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
-import DB_Image_Viewer.java;
 
 public class insertImage {
 	public static void imageTest2(String filename) {
@@ -20,9 +19,11 @@ public class insertImage {
    		 Class.forName(driverName);
    		 Connection con = DriverManager.getConnection(dbURL, "root", "dhkd6029");
    		 File file = new java.io.File(filename);
+   		 int length = (int)file.length();
    		 InputStream fin = new FileInputStream(file);
-   		 PreparedStatement pstmt = con.prepareStatement("INSERT INTO mytable (bfile) VALUES (?)");
-   		 pstmt.setString(1, filename);
+   		 PreparedStatement pstmt = con.prepareStatement("INSERT INTO mytable (bfile, bkey) VALUES (?, ?)");
+   		 pstmt.setBinaryStream(1, fin, length);
+   		 pstmt.setInt(2, 2);
    		 pstmt.executeUpdate();
    		 pstmt.close();
    		 con.close();
@@ -38,15 +39,8 @@ public class insertImage {
 	
 
 	public static void main(String[] args) {
-		// TODO Auto-generated method stub
-		
-		String filename = "C:/Users/parkjunghun/Desktop/picture.jpg";
-		
+		String filename = "C:/Users/parkjunghun/Desktop/Scan.jpg";
 		imageTest2(filename);
-
-     
-
-
 	}
 
 }
