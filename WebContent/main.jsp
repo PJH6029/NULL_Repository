@@ -4,13 +4,8 @@
 <!DOCTYPE html>
 <html>
 <head>
-<<<<<<< HEAD
-<meta http-equiv="Content-Type" content="text/html; 
-<meta name="viewport" content="width=device-width"
-=======
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-<meta name="viewport" content="width=device-width">
->>>>>>> branch 'LeeJungHun' of https://github.com/PJH6029/NULL_Repository.git
+<meta name="viewport" content="width=device-width" initial-scale="1">
 <link rel="stylesheet" href="css/bootstrap.css">
 <link rel="stylesheet" href="css/custom.css">
 <title>Null</title>

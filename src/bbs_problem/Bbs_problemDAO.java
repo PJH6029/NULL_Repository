@@ -1,4 +1,4 @@
-package bbs;
+package bbs_problem;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -6,12 +6,12 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 
-public class BbsDAO {
+public class Bbs_problemDAO {
 	
 	private Connection conn;
 	private ResultSet rs;
 	
-	public BbsDAO() {
+	public Bbs_problemDAO() {
 		try {
 			String dbURL = "jdbc:mysql://localhost:3306/BBS?serverTimezone=UTC";
 			String dbID = "root";
@@ -52,16 +52,18 @@ public class BbsDAO {
 		return -1; //데이터베이스 오류
 	}
 	
-	public int write(String bbsTitle, String userID, String bbsContent) { //게시글넣는 함수
-		String SQL = "INSERT INTO BBS VALUE (?, ?, ?, ?, ?, ?)"; 
+	public int write(String bbsDate, String userID, String questionData  ) { //게시글넣는 함수
+		//userID bbsAnswer questionData questionImage
+		String SQL = "INSERT INTO BBS_problem VALUE (?, ?, ?, ?, ?, ?, ?)"; 
 		try {
 			PreparedStatement pstmt = conn.prepareStatement(SQL);
-			pstmt.setInt(1, getNext()); 
-			pstmt.setString(2, bbsTitle); 
-			pstmt.setString(3, userID); 
-			pstmt.setString(4, getDate()); 
-			pstmt.setString(5, bbsContent); 
-			pstmt.setInt(6, 1); 
+			pstmt.setInt(1, bbsID()); //bbsID
+			pstmt.setString(2, userID); 
+			pstmt.setString(3, bbsDate); 
+			//pstmt.setyte[](4, bbsAnswer()); 
+			pstmt.setint(5, bbsAvailable); \
+			pstmt.setString(6, questionData);
+			//pstmt.set   (7. qrestionImage);
 			return pstmt.executeUpdate();
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -69,6 +71,11 @@ public class BbsDAO {
 		return -1; //데이터베이스 오류
 	}
 	
+	private int bbsID() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
 	public ArrayList<Bbs> getList(int pageNumber) { // 10개만 출력해서 보여줌
 		String SQL = "SELECT * FROM BBS WHERE bbsID < ? AND bbsAvailable = 1 ORDER BY bbsID DESC LIMIT 10"; 
 		ArrayList<Bbs> list = new ArrayList<Bbs>();
