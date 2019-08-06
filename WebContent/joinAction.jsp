@@ -1,5 +1,3 @@
-
-
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ page import="user.UserDAO" %>
@@ -10,8 +8,8 @@
 <!-- 유저아이디를 받아서 넣어줌 -->
 <jsp:setProperty name="user" property="userPassword"/>
 <jsp:setProperty name="user" property="userName"/>
-<jsp:setProperty name="user" property="userGender"/>
-<jsp:setProperty name="user" property="userEmail"/>
+<jsp:setProperty name="user" property="userLevel"/>
+<jsp:setProperty name="user" property="userGrade"/>
 
 <!DOCTYPE html>
 <html>
@@ -33,7 +31,7 @@
 			script.println("</script>");
 		}
 		if(user.getUserID() == null || user.getUserPassword() == null || user.getUserName() == null ||
-			user.getUserGender() == null || user.getUserEmail() == null){
+			user.getUserGrade() == null){
 			PrintWriter script = response.getWriter();
 			script.println("<script>");
 			script.println("alert('입력이 안된 사항이 있습니다.')");
@@ -42,7 +40,6 @@
 		} else{
 			UserDAO userDAO = new UserDAO();
 			int result = userDAO.join(user);
-			
 			if (result == -1){
 				PrintWriter script = response.getWriter();
 				script.println("<script>");
