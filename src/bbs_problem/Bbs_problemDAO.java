@@ -1,13 +1,10 @@
 package bbs_problem;
 
-import java.io.FileInputStream;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
-
-import org.apache.tomcat.util.http.fileupload.ByteArrayOutputStream;
 
 
 public class Bbs_problemDAO {
@@ -19,7 +16,7 @@ public class Bbs_problemDAO {
 		try {
 			String dbURL = "jdbc:mysql://localhost:3306/NULL2?serverTimezone=UTC";
 			String dbID = "root";
-			String dbPassword = "dhkd6029";
+			String dbPassword = "gorkd2010!";
 			Class.forName("com.mysql.cj.jdbc.Driver");
 			conn = DriverManager.getConnection(dbURL, dbID, dbPassword);
 		} catch(Exception e) {
