@@ -1,17 +1,17 @@
 <%@ page language="java" contentType="text/html; charset=utf-8"
     pageEncoding="utf-8"%>
 <%@ page import="java.io.PrintWriter" %>
-<%@ page import="bbs.BbsDAO" %>
-<%@ page import="bbs.Bbs" %>
+<%@ page import="bbs_problem.Bbs_problemDAO" %>
+<%@ page import="bbs_problem.Bbs_problem" %>
 <%@ page import="java.util.ArrayList" %>
 <!DOCTYPE html>
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-<meta name="viewport" content="width=device-width", initial-scale="1">
+<meta name="viewport" content="width=device-width">
 <link rel="stylesheet" href="css/bootstrap.css">
 <link rel="stylesheet" href="css/custom.css">
-<title>jsp 게시판 웹사이트</title>
+<title>Null</title>
 <style>
 	a, a:hover {
 		color: #000000;
@@ -95,66 +95,100 @@
 	</nav>
 	
 	<div id="searchbox">
-		<form action="studyDAO.jsp">
+		<form action="study.jsp" method="get">
 			<label>출처
             <select name = "source">
-            	<option value = "school">내신기출</option>
-                <option value = "mock">모의고사</option> 
+            	<option value = "">전체</option>
+            	<option value = "0">내신기출</option>
+                <option value = "1">모의고사</option> 
             </select>
             </label>
             &emsp;&emsp;&emsp;
-            <label>일자
-            <select name = "date">
-            	<option value = "2019-9">2019년 9월</option>
-                <option value = "2019-6">2019년 6월</option>
-                <option value = "2019-3">2019년 3월</option> 
+            <label>
+            <select name = "year">
+            	<option value = "">전체</option>
+            	<option value = "2019">2019</option>
+                <option value = "2018">2018</option>
+                <option value = "2017">2017</option> 
             </select>
+			년
+            </label>
+            &emsp;&emsp;&emsp;
+            <label>
+            <select name = "month">
+            	<option value = "">전체</option>
+            	<option value = "11">11</option>
+                <option value = "10">10</option>
+                <option value = "09">9</option>
+                <option value = "07">7</option>
+                <option value = "06">6</option>
+                <option value = "04">4</option>
+                <option value = "03">3</option> 
+            </select>
+			월
             </label>
            	&emsp;&emsp;&emsp;
-           	가련<input type = "radio" name = "type" />
+           	가형<input type = "radio" name = "type" value="1"/>
            	&nbsp;
-           	나형<input type = "radio" name = "type" />
+           	나형<input type = "radio" name = "type" value="0"/>
 			&emsp;&emsp;&emsp;
 			<label>과목
             <select name = "subject">
-            	<option value = "calculus">미적분</option>
-                <option value = "vector">기하와 벡터</option>
-                <option value = "statistics">확률과 통꼐</option> 
+            	<option value = "">전체</option>
+            	<option value = "미1">미적분</option>
+                <option value = "기벡">기하와 벡터</option>
+                <option value = "확통">확률과 통계</option>
+                <option value = "수2">수학2</option> 
             </select>
             </label>
             &emsp;&emsp;&emsp;
-            <label>난이도
-            <select name = "difficulty">
-            	<option value = "hard">어려움</option>
-                <option value = "nomal">보통</option> 
-                <option value = "easy">쉬움</option> 
-            </select>
+            <label>번호
+            <input type="text" placeholder="번호" name="number" maxlength="2" style="width:30px"> 
+            </label>
+            &emsp;&emsp;&emsp;
+            <label>정답률(%)
+            <input type="text" placeholder="%" name="correct" maxlength="2" style="width:30px"> 
             </label>
             &emsp;&emsp;&emsp;
             <input type = "submit" value = "검색"/>
 		</form>
 	</div>
 	
-	<div class="contaioner">
+	<%
+	String source = request.getParameter("source")==null?"":request.getParameter("source");
+	String year = request.getParameter("year")==null?"":request.getParameter("year");
+	String month = request.getParameter("month")==null?"":request.getParameter("month");
+	String type = request.getParameter("type")==null?"":request.getParameter("type");
+	String subject = request.getParameter("subject")==null?"":request.getParameter("subject");
+	String number = request.getParameter("number")==null?"":request.getParameter("number");
+	String correct = request.getParameter("correct")==null?"":request.getParameter("correct");
+	%>
+	
+	
+	
+	
+	<div class="container">
 		<div class="row">
 			<table class="table table-striped" style="text-align: center; border: 1px solid #dddddd;">
 				<thead>
 					<tr>
 						<th style="background-color:#eeeeee; text-align: center;">번호</th>
-						<th style="background-color:#eeeeee; text-align: center;">제목</th>
+						<th style="background-color:#eeeeee; text-align: center;">문제</th>
+						<th style="background-color:#eeeeee; text-align: center;">정답률</th>
 						<th style="background-color:#eeeeee; text-align: center;">작성자</th>
 						<th style="background-color:#eeeeee; text-align: center;">작성일</th>
 					</tr>
 				</thead>
 				<tbody>
 					<%
-					    BbsDAO bbsDAO = new BbsDAO();
-					    ArrayList<Bbs> list = bbsDAO.getList(pageNumber);
+					    Bbs_problemDAO bbs_problemDAO = new Bbs_problemDAO();
+					    ArrayList<Bbs_problem> list = bbs_problemDAO.getList(pageNumber, source, year, month, type, subject, number, correct);
 					    for(int i = 0; i < list.size(); i++){
 					%>
 					<tr>
 						<td><%= list.get(i).getBbsID() %></td>
-					    <td><a href="view.jsp?bbsID=<%= list.get(i).getBbsID()%>"><%=list.get(i).getBbsTitle().replaceAll(" ", "&nbsp;").replaceAll("<", "&lt;").replaceAll(">", "&gt;").replaceAll("\n", "<br>") %></a></td>
+					    <td><a href="view_problem.jsp?bbsID=<%= list.get(i).getBbsID()%>"><%= list.get(i).getQuestionSubject() + "   " + list.get(i).getQuestionYear() + "년 " + list.get(i).getQuestionMonth() + "월 "+ list.get(i).getQuestionNumber() + "번"%></a></td>
+					    <td><%= list.get(i).getQuestionCorrect() %></td>
 					    <td><%= list.get(i).getUserID() %></td>
 					    <td><%= list.get(i).getBbsDate().substring(0,11)+list.get(i).getBbsDate().substring(11,13) + "시" + list.get(i).getBbsDate().substring(14,16) + "분"%></td>
 					</tr>
@@ -166,11 +200,11 @@
 			<%
 				if(pageNumber != 1){
 			%>
-				<a href = "bbs.jsp?pageNumber=<%=pageNumber - 1 %>" class = "btn btn-success btn-arrow-left">이전</a>
+				<a href = "study.jsp?pageNumber=<%=pageNumber - 1 %>" class = "btn btn-success btn-arrow-left">이전</a>
 			<%
-				} if(bbsDAO.nextPage(pageNumber + 1)){
+				} if(bbs_problemDAO.nextPage(pageNumber, source, year, month, type, subject, number, correct)){
 			%>
-				<a href = "bbs.jsp?pageNumber=<%=pageNumber + 1 %>" class = "btn btn-success btn-arrow-left">다음</a>
+				<a href = "study.jsp?pageNumber=<%=pageNumber + 1 %>" class = "btn btn-success btn-arrow-left">다음</a>
 			<%
 				}
 			%>

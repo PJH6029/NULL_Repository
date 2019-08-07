@@ -13,7 +13,7 @@ public class BbsDAO {
 	
 	public BbsDAO() {
 		try {
-			String dbURL = "jdbc:mysql://localhost:3306/BBS?serverTimezone=UTC";
+			String dbURL = "jdbc:mysql://localhost:3306/NULL2?serverTimezone=UTC";
 			String dbID = "root";
 			String dbPassword = "dhkd6029";
 			Class.forName("com.mysql.cj.jdbc.Driver");
@@ -37,7 +37,7 @@ public class BbsDAO {
 		return ""; //데이터베이스 오류
 	}
 	
-	public int getNext() { //현재시간 가져옴
+	public int getNext() {
 		String SQL = "SELECT bbsID FROM BBS ORDER BY bbsID DESC"; //마지막 글의 번호가져오는 것
 		try {
 			PreparedStatement pstmt = conn.prepareStatement(SQL);
