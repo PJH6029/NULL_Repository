@@ -114,6 +114,8 @@
 					%>
 				</tbody>
 			</table>
+			
+			<a href="study.jsp" class="btn btn-primary">문제 목록</a>
 			<%
 				if(pageNumber != 1){
 			%>
@@ -126,7 +128,6 @@
 			<%
 				}
 			%>
-			<a href="write.jsp" class="btn btn-primary pull-right">글쓰기</a>
 		</div>
 	</div>
 	

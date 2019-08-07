@@ -8,7 +8,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-<meta name="viewport" content="width=device-width" initial-scale="1">
+<meta name="viewport" content="width=device-width">
 <link rel="stylesheet" href="css/bootstrap.css">
 <link rel="stylesheet" href="css/custom.css">
 <title>Null</title>
@@ -115,28 +115,38 @@
 	</nav>
 	
 	<div id="container">
+	
 		<div >
-			<div id="main-container-in-container">
-				<h1 style="margin-top:0"><%= isTrue%></h1> 
-				<div style="height:100%; text-align:center; padding-top:0">
+		
+
+ 
+    
+ 
+
+				<h1 style="margin: 0 auto"><%= isTrue%></h1> 
+				<div style="vertical-align :middle; text-align:center; padding-top:0
+				">
+				
 					<% 
 					if(isTrue == "오답") { 
 					%>
+			
 						<p>
 							<input type="button" value="정답 확인하기" onclick="show()">
 						<a href="view_problem.jsp?bbsID=<%= problemID%>">다시 풀어보기</a>
 						</p>
 						
 						<p id="ans" style="display:none">
-							<%= answer %>
-						</p>
+							<%= bbs_problem.getQuestionAnswer() %>
+						
+						 
 					<%
 						} 
 					%>
 				</div>
 
-			</div>
-			<div style="text-align:right; padding-right:50px">
+
+			<div style= "vertical-align : bottom; text-align:right; padding-right:50px">
 				<a href="solve.jsp?bbsID=<%= problemID%>" class="btn btn-primary" >해설 바로가기</a>
 				<a href="study.jsp" class="btn btn-primary" >다른 문제 풀어보기</a>
 			</div>

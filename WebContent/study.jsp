@@ -30,6 +30,17 @@
 				padding-top: 5px;
 				padding-bottom: 5px; 
 				}
+	@media(max-width:1145px){
+		#searchbox{
+			height :70px;
+		}
+	}
+	@media(max-width:650px){
+		#searchbox{
+			height:105px;
+		}
+	}
+	
 </style>
 </head>
 <body>
@@ -99,7 +110,7 @@
 			<label>출처
             <select name = "source">
             	<option value = "">전체</option>
-            	<option value = "0">내신기출</option>
+            	<option value = "0">사설</option>
                 <option value = "1">모의고사</option> 
             </select>
             </label>
@@ -208,7 +219,6 @@
 			<%
 				}
 			%>
-			<a href="write.jsp" class="btn btn-primary pull-right">글쓰기</a>
 		</div>
 	</div>
 	

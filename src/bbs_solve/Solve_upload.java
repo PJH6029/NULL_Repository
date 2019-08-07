@@ -7,6 +7,7 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 
 import org.apache.tomcat.util.http.fileupload.ByteArrayOutputStream;
 
@@ -72,23 +73,33 @@ public class Solve_upload {
 			pstmt.setBytes(8, imageData);
 			
 			pstmt.executeUpdate();
-			pstmt.close();
-			conn.close();
 			//return pstmt.executeUpdate();
 		} catch (Exception e) {
 			e.printStackTrace();
+		} finally {
+			if(rs != null) {
+				try { rs.close(); } catch(SQLException se) {}
+			}
+			
+			if(pstmt != null) {
+				try { pstmt.close(); } catch(SQLException se) {}
+			}
+			
+			if(conn != null) {
+				try { conn.close(); } catch(SQLException se) {}
+			}
 		}
 		//return -1; //데이터베이스 오류
 		}
 
 	public static void main(String[] args) {
-		String Imagepath = "WebContent/problem_images/1 2018 11 0 확통 18 42 003.JPG";
+		String Imagepath = "WebContent/solve_images/picture.JPG";
 		
-		int bbsID = 1; 
-		String bbsTitle = "내맘대로";
+		int bbsID = 3; //넣을때마다 하나씩 증가
+		String bbsTitle = "2번의 2번풀이";
 		String userID = "top321902";
 		String bbsContent = "내맘대로2";
-		int problemID = 1;
+		int problemID = 2; //어디의 풀이인지 알려줌
 		
 		open();
 		write(bbsID, bbsTitle, userID, bbsContent, problemID, Imagepath);

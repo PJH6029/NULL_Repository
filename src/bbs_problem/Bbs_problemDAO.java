@@ -152,8 +152,8 @@ public class Bbs_problemDAO {
 				bbs_problem.setQuestionYear(rs.getString(6));
 				bbs_problem.setQuestionMonth(rs.getString(7));
 				bbs_problem.setQuestionType(rs.getString(8));
-				bbs_problem.setQuestionNumber(rs.getString(9));
-				bbs_problem.setQuestionSubject(rs.getString(10));
+				bbs_problem.setQuestionSubject(rs.getString(9));
+				bbs_problem.setQuestionNumber(rs.getString(10));
 				bbs_problem.setQuestionCorrect(rs.getInt(11));
 				bbs_problem.setQuestionAnswer(rs.getString(12));
 				list.add(bbs_problem);

@@ -6,6 +6,7 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 
 import org.apache.tomcat.util.http.fileupload.ByteArrayOutputStream;
 
@@ -78,17 +79,28 @@ public class Problem_upload {
 			pstmt.setBytes(13, imageData);
 			
 			pstmt.executeUpdate();
-			pstmt.close();
-			conn.close();
+
 			//return pstmt.executeUpdate();
 		} catch (Exception e) {
 			e.printStackTrace();
-		}
+		} finally {
+			if(rs != null) {
+				try { rs.close(); } catch(SQLException se) {}
+			}
+			
+			if(pstmt != null) {
+				try { pstmt.close(); } catch(SQLException se) {}
+			}
+			
+			if(conn != null) {
+				try { conn.close(); } catch(SQLException se) {}
+			}
 		//return -1; //데이터베이스 오류
 		}
+	}
 
 	public static void main(String[] args) {
-		String Imagepath = "WebContent/problem_images/1 2018 11 0 확통 18 42 003.JPG";
+		String Imagepath = "WebContent/problem_images/1 2018 11 0 수2 29 08 117.JPG";
 		
 		File f = new File(Imagepath);
 		System.out.println(f.isDirectory()); 
@@ -100,12 +112,12 @@ public class Problem_upload {
 		filename = filename.substring(0, filename.length()-4);
 		System.out.println(filename);
 		String[] file_array = filename.split(" ");
-		/*
+		
 		for(int i=0; i<file_array.length; i++) {
 			System.out.println(file_array[i]);
 		}
-		*/
-		int bbsID = 1; 
+		
+		int bbsID = 2; 
 		String userID = "top321902";
 		String questionSource = file_array[0];
 		String questionYear = file_array[1];

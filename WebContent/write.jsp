@@ -5,9 +5,10 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<meta name="viewport" content="width=device-width" initial-scale="1">
+<meta name="viewport" content="width=device-width">
 <link rel="stylesheet" href="css/bootstrap.css">
-<title>JSP 게시판 웹사이트</title>
+<link rel="stylesheet" href="css/custom.css">
+<title>Null</title>
 </head>
 
 <!-- available 0이면 삭제된거 1이면 안된거 -->
@@ -16,6 +17,13 @@
 		String userID = null;
 		if (session.getAttribute("userID") != null){
 			userID = (String) session.getAttribute("userID");
+		}
+		if(userID == null) {
+			PrintWriter script = response.getWriter();
+			script.println("<script>");
+			script.println("alert('로그인을 하세요.')");
+			script.println("location.href='login.jsp'");
+			script.println("</script>");
 		}
 	%>
 	<nav class="navbar navbar-default"> 
@@ -28,31 +36,30 @@
 				<span class="icon-bar"></span>
 				<span class="icon-bar"></span>		
 			</button>
-			<a class="navbar-brand" href="main.jsp">JSP 게시판 웹사이트</a>
+			<a class="navbar-brand" href="main.jsp">Null</a>
 		</div>
 		<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 			<ul class="nav navbar-nav">
 				<li><a href="main.jsp">메인</a></li>
-				<li class="active"><a href="bbs.jsp">게시판</a></li>
-			</ul>
+				<li><a href="study.jsp">학습</a></li>
+				<li><a href="bbs.jsp">등록</a></li>	
+				<li class="active"><a href="bbs.jsp">게시판</a></li>		
+			</ul>	
 			<%
-				if(userID == null){ // 로그인 되어있지 않다면?
-			%>	
+				if(userID==null){
+			%>
 			<ul class="nav navbar-nav navbar-right">
 				<li class="dropdown">
 					<a href="#" class="dropdown-toggle"
 						data-toggle="dropdown" role="button" aria-haspopup="true"
 						aria-expanded="false">접속하기<span class="caret"></span></a>
-						<!-- span: 아이콘같은거 -->
 					<ul class="dropdown-menu">
 						<li><a href="login.jsp">로그인</a></li>
-						<!--  active: 현재 선택이 됨 -->
 						<li><a href="join.jsp">회원가입</a></li>
-						<!--  드롭다운 안되는 이유? -->
 					</ul>
-				</li>
+				</li>			
 			</ul>
-			<%
+			<%		
 				} else {
 			%>
 			<ul class="nav navbar-nav navbar-right">
@@ -60,12 +67,10 @@
 					<a href="#" class="dropdown-toggle"
 						data-toggle="dropdown" role="button" aria-haspopup="true"
 						aria-expanded="false">회원관리<span class="caret"></span></a>
-						<!-- span: 아이콘같은거 -->
 					<ul class="dropdown-menu">
 						<li><a href="logoutAction.jsp">로그아웃</a></li>
-						<!--  active: 현재 선택이 됨 -->
 					</ul>
-				</li>
+				</li>			
 			</ul>
 			<%
 				}
@@ -78,7 +83,7 @@
 			<table class="table table-striped" style="text-align: center; border: 1px solid #dddddd">
 				<thead>
 					<tr> <!-- row->행 -->
-						<th colspan="2" style="background-color: #eeeeee; text-align: center;">게시판 글쓰기 양식</th>
+						<th colspan="2" style="background-color: #eeeeee; text-align: center;">글쓰기</th>
 					</tr>
 				</thead>
 				<tbody>

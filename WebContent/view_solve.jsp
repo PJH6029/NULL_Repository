@@ -115,7 +115,7 @@
 			<table class="table table-striped" style="text-align: center; border: 1px solid #dddddd">
 				<thead>
 					<tr> <!-- row->행 -->
-						<th colspan="16" style="background-color: #eeeeee; text-align: center;">문제 모음</th>
+						<th colspan="14" style="background-color: #eeeeee; text-align: center;">문제 모음</th>
 					</tr>
 				</thead>
 				<tbody>
@@ -135,17 +135,12 @@
 						<td style="background-color: #eeeeee;">번호</td>
 						<td ><%= bbs_problem.getQuestionNumber().replaceAll(" ", "&nbsp;").replaceAll("<","&lt;").replaceAll("<", "&gt;").replaceAll("\n", "<br>") %></td>
 					<tr>
-						<td>이미지</td>
-						<td colspan = "16"><img src="/NULL/Image_Viewer_for_Solve?bbsID=<%=bbsID %>"></td>
+						<td style="background-color: #eeeeee;">이미지</td>
+						<td colspan = "13"><img src="/NULL/Image_Viewer_for_Solve?bbsID=<%=bbsID %>"></td>
 					</tr>
-					<tr align=right>
-						<td colspan="16">
-							<form action="check.jsp" method="get">
-								<input type="text" placeholder="정답" name="answer" maxlength="3" style="width:20%; height:100%" required> 
-								<input type="hidden" name="problemID" value=<%= bbsID %>>
-								<input type = "submit" value = "정답확인"/>
-							</form>
-						</td>
+					<tr>
+						<td style="background-color: #eeeeee;">글 내용</td>
+						<td colspan = "13"><%= bbs_solve.getBbsContent().replaceAll(" ", "&nbsp;").replaceAll("<","&lt;").replaceAll("<", "&gt;").replaceAll("\n", "<br>") %></td>
 					</tr>
 					
 				</tbody>
