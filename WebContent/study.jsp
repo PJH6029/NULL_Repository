@@ -34,12 +34,13 @@
 		#searchbox{
 			height :70px;
 		}
+	}
 	@media(max-width:650px){
 		#searchbox{
 			height:105px;
 		}
 	}
-	}
+	
 
 
 </style>
