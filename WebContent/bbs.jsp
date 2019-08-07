@@ -8,8 +8,10 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<meta name="viewport" content="width=device-width" initial-scale="1">
+<meta name="viewport" content="width=device-width">
 <link rel="stylesheet" href="css/bootstrap.css">
+<link rel="stylesheet" href="css/custom.css">
+
 <title>Null</title>
 
 <style>
@@ -25,6 +27,7 @@
 					margin-left: 50px;
 					margin-right: 50px; 
 					}
+					
 </style>
 
 
@@ -69,7 +72,7 @@ SHOW TABLES를 통해서 데이터 베이스들이 무엇이 있는지 확인 �
 				<li><a href="main.jsp">메인</a></li>
 				<li><a href="study.jsp">학습</a></li>
 				<li><a href="bbs.jsp">등록</a></li>	
-				<li><a href="bbs.jsp">게시판</a></li>		
+				<li class="active"><a href="bbs.jsp">게시판</a></li>		
 			</ul>	
 			<%
 				if(userID==null){

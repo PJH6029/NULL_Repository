@@ -10,6 +10,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <meta name="viewport" content="width=device-width">
 <link rel="stylesheet" href="css/bootstrap.css">
+<link rel="stylesheet" href="css/custom.css">
 <title>Null</title>
 <style>
 	a, a:hover {
@@ -111,7 +112,7 @@
 			<label>출처
             <select name = "source">
             	<option value = "">전체</option>
-            	<option value = "0">내신기출</option>
+            	<option value = "0">사설</option>
                 <option value = "1">모의고사</option> 
             </select>
             </label>

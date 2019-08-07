@@ -7,7 +7,8 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta name="viewport" content="width=device-width" initial-scale="1">
 <link rel="stylesheet" href="css/bootstrap.css">
-<title>JSP 게시판 웹사이트</title>
+<link rel="stylesheet" href="css/custom.css">
+<title>Null</title>
 </head>
 
 <!-- available 0이면 삭제된거 1이면 안된거 -->
@@ -40,9 +41,9 @@
 		<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 			<ul class="nav navbar-nav">
 				<li><a href="main.jsp">메인</a></li>
-				<li class="active"><a href="study.jsp">학습</a></li>
+				<li><a href="study.jsp">학습</a></li>
 				<li><a href="bbs.jsp">등록</a></li>	
-				<li><a href="bbs.jsp">게시판</a></li>		
+				<li class="active"><a href="bbs.jsp">게시판</a></li>		
 			</ul>	
 			<%
 				if(userID==null){

@@ -7,6 +7,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <meta name="viewport" content="width=device-width" initial-scale="1">
 <link rel="stylesheet" href="css/bootstrap.css">
+<link rel="stylesheet" href="css/custom.css">
 <title>Null</title>
 
 <style>
@@ -45,8 +46,8 @@
 		</div>
 		<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 			<ul class="nav navbar-nav">
-				<li><a href="main.jsp">메인</a></li>
-				<li class="active"><a href="study.jsp">학습</a></li>
+				<li class="active"><a href="main.jsp">메인</a></li>
+				<li><a href="study.jsp">학습</a></li>
 				<li><a href="bbs.jsp">등록</a></li>	
 				<li><a href="bbs.jsp">게시판</a></li>		
 			</ul>	
