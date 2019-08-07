@@ -1,33 +1,24 @@
 <%@ page language="java" contentType="text/html; charset=utf-8"
     pageEncoding="utf-8"%>
 <%@ page import="java.io.PrintWriter" %>
-<%@ page import="bbs_problem.Bbs_problem" %>
-<%@ page import="bbs_problem.Bbs_problemDAO" %>
-
+<%@ page import="bbs_solve.Bbs_solveDAO" %>
+<%@ page import="bbs_solve.Bbs_solve" %>
+<%@ page import="java.util.ArrayList" %>
 <!DOCTYPE html>
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-<meta name="viewport" content="width=device-width" initial-scale="1">
+<meta name="viewport" content="width=device-width">
 <link rel="stylesheet" href="css/bootstrap.css">
 <link rel="stylesheet" href="css/custom.css">
 <title>Null</title>
-
 <style>
-	#main-container{
-					width: auto;
-					height: 500px;
-					margin-left: 100px;
-					margin-right: 100px; 
-					margin-top: 50px;
-					}
-	#main-container-in-container{
-					width: auto;
-					margin-left: 50px;
-					margin-right: 50px; 
-					}
+	a, a:hover {
+		color: #000000; 
+		text-decoartion: none;
+	}
+	
 </style>
-
 </head>
 <body>
 	<%
@@ -35,33 +26,14 @@
 		if(session.getAttribute("userID") != null){
 			userID = (String) session.getAttribute("userID");
 		}
-		
-		String answer = null;
-		if(request.getParameter("answer") != null){
-			answer = request.getParameter("answer");
-			switch(answer.length()){
-			case 1: 
-				answer = "00" + answer; 
-				break;
-			case 2:
-				answer = "0" + answer;
-				break;
-			}
+		int pageNumber = 1;
+		if(request.getParameter("pageNumber") != null){
+			pageNumber = Integer.parseInt(request.getParameter("pageNumber"));
 		}
-		if(answer == null){
-			PrintWriter script = response.getWriter();
-			script.println("<script>");
-			script.println("alert('정답을 입력해주세요.')");
-			script.println("history.back()");
-			script.println("</script>");
+		int problemID = 0;
+		if(request.getParameter("bbsID") != null){
+			problemID = Integer.parseInt(request.getParameter("bbsID"));
 		}
-		
-		int problemID = Integer.parseInt(request.getParameter("problemID"));
-		Bbs_problem bbs_problem = new Bbs_problemDAO().getBbs_problem(problemID); 
-		
-		String isTrue = null;
-		if (answer.equals(bbs_problem.getQuestionAnswer())){isTrue = "정답";}
-		else { isTrue = "오답";}
 	%>
 	<nav class="navbar navbar-default">
 		<div class="navbar-header">
@@ -112,42 +84,52 @@
 				}
 			%>
 		</div>
-	</nav>
-	
-	<div id="container">
-		<div >
-			<div id="main-container-in-container">
-				<h1 style="margin-top:0"><%= isTrue%></h1> 
-				<div style="height:100%; text-align:center; padding-top:0">
-					<% 
-					if(isTrue == "오답") { 
-					%>
-						<p>
-							<input type="button" value="정답 확인하기" onclick="show()">
-						<a href="view_problem.jsp?bbsID=<%= problemID%>">다시 풀어보기</a>
-						</p>
-						
-						<p id="ans" style="display:none">
-							<%= answer %>
-						</p>
+	</nav> 
+	<h1 style="text-align: center;">문제 해설</h1>
+	<div class="contaioner">
+		<div class="row">
+			<table class="table table-striped" style="text-align: center; border: 1px solid #dddddd;">
+				<thead>
+					<tr>
+						<th style="background-color:#eeeeee; text-align: center;">번호</th>
+						<th style="background-color:#eeeeee; text-align: center;">제목</th>
+						<th style="background-color:#eeeeee; text-align: center;">작성자</th>
+						<th style="background-color:#eeeeee; text-align: center;">작성일</th>
+					</tr>
+				</thead>
+				<tbody>
 					<%
-						} 
+					    Bbs_solveDAO bbs_solveDAO = new Bbs_solveDAO();
+					    ArrayList<Bbs_solve> list = bbs_solveDAO.getList(pageNumber, problemID);
+					    for(int i = 0; i < list.size(); i++){
 					%>
-				</div>
-
-			</div>
-			<div style="text-align:right; padding-right:50px">
-				<a href="solve.jsp?bbsID=<%= problemID%>" class="btn btn-primary" >해설 바로가기</a>
-				<a href="study.jsp" class="btn btn-primary" >다른 문제 풀어보기</a>
-			</div>
+					<tr>
+						<td><%= list.get(i).getBbsID() %></td>
+					    <td><a href="view_solve.jsp?bbsID=<%= list.get(i).getBbsID()%>&problemID=<%= problemID%>"><%=list.get(i).getBbsTitle()%></a></td>
+					    <td><%= list.get(i).getUserID() %></td>
+					    <td><%= list.get(i).getBbsDate().substring(0,11)+list.get(i).getBbsDate().substring(11,13) + "시" + list.get(i).getBbsDate().substring(14,16) + "분"%></td>
+					</tr>
+					<%
+					    }
+					%>
+				</tbody>
+			</table>
+			<%
+				if(pageNumber != 1){
+			%>
+				<a href = "solve.jsp?pageNumber=<%=pageNumber - 1 %>" class = "btn btn-success btn-arrow-left">이전</a>
+			<%
+				} 
+				if(bbs_solveDAO.nextPage(pageNumber, problemID)){
+			%>
+				<a href = "solve.jsp?pageNumber=<%=pageNumber + 1 %>" class = "btn btn-success btn-arrow-left">다음</a>
+			<%
+				}
+			%>
+			<a href="write.jsp" class="btn btn-primary pull-right">글쓰기</a>
 		</div>
 	</div>
-	<script>
-		function show(){
-			var obj = document.getElementById("ans");
-			obj.style.display="block";
-		}
-	</script>
+	
 	<script src="http://code.jquery.com/jquery-3.1.1.min.js"></script>
 	<script src="js/bootstrap.js"></script>
 </body>

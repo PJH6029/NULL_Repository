@@ -20,7 +20,9 @@
   <url-pattern>/Image_Viewer</url-pattern>  
   </servlet-mapping>
   
-    <servlet>
+  
+  
+  <servlet>
   <servlet-name>Viewer_practice</servlet-name> 
   <servlet-class>practice.Viewer_practice</servlet-class> 
   </servlet>
@@ -28,5 +30,15 @@
   <servlet-mapping>
   <servlet-name>Viewer_practice</servlet-name> 
   <url-pattern>/Viewer_practice</url-pattern>  
+  </servlet-mapping>
+  
+  <servlet>
+  <servlet-name>Image_Viewer_for_Solve</servlet-name> 
+  <servlet-class>bbs_solve.Image_Viewer_for_Solve</servlet-class> 
+  </servlet>
+  
+  <servlet-mapping>
+  <servlet-name>Image_Viewer_for_Solve</servlet-name> 
+  <url-pattern>/Image_Viewer_for_Solve</url-pattern>  
   </servlet-mapping>
 </web-app>
