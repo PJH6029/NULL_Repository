@@ -20,60 +20,54 @@
 		Bbs_problem bbs_problem = new Bbs_problemDAO().getBbs_problem(bbsID); 
 		
 	%>
-	
+	<% 
+		String source = null;
+		source = bbs_problem.getQuestionSource().replaceAll(" ", "&nbsp;").replaceAll("<","&lt;").replaceAll("<", "&gt;").replaceAll("\n", "<br>");
+		String source_translation = null;
+		if (source.equals("0")) { source_translation = "사설";}
+		else if (source.equals("1")) { source_translation = "모의고사";}
+		else { source_translation = "null";}
+
+		String type = null;
+		type = bbs_problem.getQuestionType().replaceAll(" ", "&nbsp;").replaceAll("<","&lt;").replaceAll("<", "&gt;").replaceAll("\n", "<br>");
+		String type_translation = null;
+		if (type.equals("0")) { type_translation = "나";}
+		else if (type.equals("1")) { type_translation = "가";}
+		else { type_translation = "null";}
+		
+		
+	%>
 	<div class="container">
 		<div class="row">
 			<table class="table table-striped" style="text-align: center; border: 1px solid #dddddd">
 				<thead>
 					<tr> <!-- row->행 -->
-						<th colspan="3" style="background-color: #eeeeee; text-align: center;">게시판 보기 양식</th>
+						<th colspan="16" style="background-color: #eeeeee; text-align: center;">문제 모음</th>
 					</tr>
 				</thead>
 				<tbody>
-					<tr>
-						<td>작성자</td>
-						<td colspan="2"><%= bbs_problem.getUserID() %></td>
-					</tr>
-					<tr>
-						<td>작성일</td>
-						<td colspan="2"><%= bbs_problem.getBbsDate().substring(0, 11) +  bbs_problem.getBbsDate().substring(11, 13) + "시" + bbs_problem.getBbsDate().substring(14, 16) + "분" %></td>
-					</tr>
-					<tr>
-						<td style="width: 20%;">출처</td>
-						<td colspan="2"><%= bbs_problem.getQuestionSource().replaceAll(" ", "&nbsp;").replaceAll("<","&lt;").replaceAll("<", "&gt;").replaceAll("\n", "<br>") %></td>
-					</tr>
-					<tr>
-						<td style="width: 20%;">년</td>
-						<td colspan="2"><%= bbs_problem.getQuestionYear().replaceAll(" ", "&nbsp;").replaceAll("<","&lt;").replaceAll("<", "&gt;").replaceAll("\n", "<br>") %></td>
-					</tr>
-					<tr>
-						<td style="width: 20%;">월</td>
-						<td colspan="2"><%= bbs_problem.getQuestionMonth().replaceAll(" ", "&nbsp;").replaceAll("<","&lt;").replaceAll("<", "&gt;").replaceAll("\n", "<br>") %></td>
-					</tr>
-					<tr>
-						<td style="width: 20%;">가/나</td>
-						<td colspan="2"><%= bbs_problem.getQuestionType().replaceAll(" ", "&nbsp;").replaceAll("<","&lt;").replaceAll("<", "&gt;").replaceAll("\n", "<br>") %></td>
-					</tr>
-					<tr>
-						<td style="width: 20%;">과목</td>
-						<td colspan="2"><%= bbs_problem.getQuestionSubject().replaceAll(" ", "&nbsp;").replaceAll("<","&lt;").replaceAll("<", "&gt;").replaceAll("\n", "<br>") %></td>
-					</tr>
-					<tr>
-						<td style="width: 20%;">번호</td>
-						<td colspan="2"><%= bbs_problem.getQuestionNumber().replaceAll(" ", "&nbsp;").replaceAll("<","&lt;").replaceAll("<", "&gt;").replaceAll("\n", "<br>") %></td>
-					</tr>
-					<tr>
-						<td style="width: 20%;">정답률</td>
-						<td colspan="2"><%= bbs_problem.getQuestionCorrect() %></td>
-					</tr>
+					<tr>			
+						<td style="background-color: #eeeeee;" >작성자</td>
+						<td ><%= bbs_problem.getUserID() %></td>
+						<td style="background-color: #eeeeee;">작성일</td>
+						<td ><%= bbs_problem.getBbsDate().substring(0, 11) +  bbs_problem.getBbsDate().substring(11, 13) + "시" + bbs_problem.getBbsDate().substring(14, 16) + "분" %></td>
+						<td style="background-color: #eeeeee;">출처</td>
+						<td style="border: 1px solid #eeeeee"><%= source_translation %></td>
+						<td style="background-color: #eeeeee;"><%= bbs_problem.getQuestionYear().replaceAll(" ", "&nbsp;").replaceAll("<","&lt;").replaceAll("<", "&gt;").replaceAll("\n", "<br>") %></td>
+						<td >년</td>
+						<td style="background-color: #eeeeee;"><%= bbs_problem.getQuestionMonth().replaceAll(" ", "&nbsp;").replaceAll("<","&lt;").replaceAll("<", "&gt;").replaceAll("\n", "<br>") %></td>
+						<td >월</td>
+						<td style="background-color: #eeeeee;"><%= type_translation %></td>
+						<td ><%= bbs_problem.getQuestionSubject().replaceAll(" ", "&nbsp;").replaceAll("<","&lt;").replaceAll("<", "&gt;").replaceAll("\n", "<br>") %></td>
+						<td style="background-color: #eeeeee;">번호</td>
+						<td ><%= bbs_problem.getQuestionNumber().replaceAll(" ", "&nbsp;").replaceAll("<","&lt;").replaceAll("<", "&gt;").replaceAll("\n", "<br>") %></td>
 					<tr>
 						<td>이미지</td>
-						<td><img src="/NULL/Image_Viewer?bbsID=<%= bbsID %>"></td>
+						<td colspan = "16"><img src="/NULL/Image_Viewer?bbsID=<%=bbsID %>"></td>
 					</tr>
 					
 				</tbody>
 			</table>
-			<a href="bbs.jsp" class="btn btn-primary">목록</a>
 			
 		</div>
 	</div>
