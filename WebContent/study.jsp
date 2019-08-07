@@ -17,7 +17,7 @@
 		color: #000000;
 		text-decoartion: none;
 	}
-	
+
 	#searchbox{
 				background-color:gray; 
 				width: auto;
@@ -29,7 +29,19 @@
 				padding-left: 30px; 
 				padding-top: 5px;
 				padding-bottom: 5px; 
-				}
+				}				
+	@media(max-width:1145px){
+		#searchbox{
+			height :70px;
+		}
+	@media(max-width:650px){
+		#searchbox{
+			height:105px;
+		}
+	}
+	}
+
+
 </style>
 </head>
 <body>
