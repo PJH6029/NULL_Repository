@@ -48,7 +48,7 @@
 			<ul class="nav navbar-nav">
 				<li class="active"><a href="main.jsp">메인</a></li>
 				<li><a href="study.jsp">학습</a></li>
-				<li><a href="bbs.jsp">등록</a></li>	
+				<li><a href="bbs_ask.jsp">등록</a></li>	
 				<li><a href="bbs.jsp">게시판</a></li>		
 			</ul>	
 			<%

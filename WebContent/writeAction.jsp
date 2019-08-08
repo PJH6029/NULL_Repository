@@ -7,7 +7,6 @@
 <% request.setCharacterEncoding("UTF-8"); %>
 <jsp:useBean id="bbs" class="bbs.Bbs" scope="page" />
 <jsp:setProperty name="bbs" property="bbsTitle"/>
-<!-- 유저아이디를 받아서 넣어줌 -->
 <jsp:setProperty name="bbs" property="bbsContent"/>
 
 <!DOCTYPE html>

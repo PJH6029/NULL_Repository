@@ -79,7 +79,7 @@
 	</nav>
 	<div class="container">
 		<div class="row">
-		<form method="post" action="writeAction.jsp"> <!-- 그안에거를 서버로 전송 -->
+		<form method="post" action="write_askAction.jsp"> <!-- 그안에거를 서버로 전송 -->
 			<table class="table table-striped" style="text-align: center; border: 1px solid #dddddd">
 				<thead>
 					<tr> <!-- row->행 -->

@@ -19,11 +19,13 @@
 				<span class="icon-bar"></span>
 				<span class="icon-bar"></span>		
 			</button>
-			<a class="navbar-brand" href="main.jsp">JSP 게시판 웹사이트</a>
+			<a class="navbar-brand" href="main.jsp">Null</a>
 		</div>
 		<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 			<ul class="nav navbar-nav">
 				<li><a href="main.jsp">메인</a></li>
+				<li><a href="study.jsp">학습</a></li>
+				<li><a href="bbs_ask.jsp">등록</a></li>
 				<li><a href="bbs.jsp">게시판</a></li>
 			</ul>
 			<ul class="nav navbar-nav navbar-right">

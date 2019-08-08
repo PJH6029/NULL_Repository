@@ -70,7 +70,7 @@ SHOW TABLES를 통해서 데이터 베이스들이 무엇이 있는지 확인 �
 			<ul class="nav navbar-nav">
 				<li><a href="main.jsp">메인</a></li>
 				<li><a href="study.jsp">학습</a></li>
-				<li><a href="bbs.jsp">등록</a></li>	
+				<li><a href="bbs_ask.jsp">등록</a></li>	
 				<li class="active"><a href="bbs.jsp">게시판</a></li>		
 			</ul>	
 			<%
@@ -144,7 +144,7 @@ SHOW TABLES를 통해서 데이터 베이스들이 무엇이 있는지 확인 �
 			<%
 				}
 			%>
-			<a href="write.jsp" class="btn btn-primary pull-right">글쓰기</a>
+			<a href="write_ask.jsp" class="btn btn-primary pull-right">글쓰기</a>
 		</div>
 	</div>
 	<script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>

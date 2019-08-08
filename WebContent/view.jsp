@@ -45,31 +45,30 @@
 				<span class="icon-bar"></span>
 				<span class="icon-bar"></span>		
 			</button>
-			<a class="navbar-brand" href="main.jsp">JSP 게시판 웹사이트</a>
+			<a class="navbar-brand" href="main.jsp">Null</a>
 		</div>
 		<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 			<ul class="nav navbar-nav">
 				<li><a href="main.jsp">메인</a></li>
-				<li class="active"><a href="bbs.jsp">게시판</a></li>
-			</ul>
+				<li class="active"><a href="study.jsp">학습</a></li>
+				<li><a href="bbs_ask.jsp">등록</a></li>	
+				<li><a href="bbs.jsp">게시판</a></li>		
+			</ul>	
 			<%
-				if(userID == null){ // 로그인 되어있지 않다면?
-			%>	
+				if(userID==null){
+			%>
 			<ul class="nav navbar-nav navbar-right">
 				<li class="dropdown">
 					<a href="#" class="dropdown-toggle"
 						data-toggle="dropdown" role="button" aria-haspopup="true"
 						aria-expanded="false">접속하기<span class="caret"></span></a>
-						<!-- span: 아이콘같은거 -->
 					<ul class="dropdown-menu">
 						<li><a href="login.jsp">로그인</a></li>
-						<!--  active: 현재 선택이 됨 -->
 						<li><a href="join.jsp">회원가입</a></li>
-						<!--  드롭다운 안되는 이유? -->
 					</ul>
-				</li>
+				</li>			
 			</ul>
-			<%
+			<%		
 				} else {
 			%>
 			<ul class="nav navbar-nav navbar-right">
@@ -77,12 +76,10 @@
 					<a href="#" class="dropdown-toggle"
 						data-toggle="dropdown" role="button" aria-haspopup="true"
 						aria-expanded="false">회원관리<span class="caret"></span></a>
-						<!-- span: 아이콘같은거 -->
 					<ul class="dropdown-menu">
 						<li><a href="logoutAction.jsp">로그아웃</a></li>
-						<!--  active: 현재 선택이 됨 -->
 					</ul>
-				</li>
+				</li>			
 			</ul>
 			<%
 				}

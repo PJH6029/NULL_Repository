@@ -52,7 +52,7 @@
 				String fileName = multi.getFilesystemName("bbsImage");
 				
 				String bbsImageFullPath = savePath + "/" + fileName; //DB저장용
-				
+				System.out.print(bbsTitle+" " +bbsContent+" "+ fileName);
 				
 			} catch(Exception e){
 				e.printStackTrace();
