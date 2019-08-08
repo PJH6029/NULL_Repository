@@ -100,6 +100,7 @@
 			</table>
 			<input type="submit" class="btn btn-primary pull-right" value="글수정">
 		</form>
+		<a href="bbs.jsp" class="btn btn-primary pull-right">목록</a>
 		</div>
 	</div>
 	<script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>

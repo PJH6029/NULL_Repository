@@ -23,7 +23,6 @@ public class Image_Viewer_for_Ask extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String bbsIDStr = request.getParameter("bbsID"); // 파라미터 가져와서 조회
-		System.out.println("hello");
 		int bbsID = 0;
 		if(bbsIDStr != null) {
 			bbsID = Integer.parseInt(bbsIDStr);

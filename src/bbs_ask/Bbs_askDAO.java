@@ -132,13 +132,14 @@ public class Bbs_askDAO {
 		
 	}
 	//추후 구현
-	public int update(int bbsID, String bbsTitle, String bbsContent) {
-		String SQL = "UPDATE BBS_ASK SET bbsTitle = ?, bbsContent = ? WHERE bbsID = ?"; 
+	public int update(int bbsID, String bbsTitle, String bbsContent, byte[] buf) {
+		String SQL = "UPDATE BBS_ASK SET bbsTitle = ?, bbsContent = ?, bbsImage=? WHERE bbsID = ?"; 
 		try {
 			PreparedStatement pstmt = conn.prepareStatement(SQL);
 			pstmt.setString(1, bbsTitle); 
 			pstmt.setString(2, bbsContent); 
-			pstmt.setInt(3, bbsID); 
+			pstmt.setBytes(3, buf); 
+			pstmt.setInt(4, bbsID);
 			return pstmt.executeUpdate();
 		} catch (Exception e) {
 			e.printStackTrace();
