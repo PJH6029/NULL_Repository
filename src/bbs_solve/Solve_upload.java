@@ -1,15 +1,16 @@
-package bbs_problem;
+package bbs_solve;
 
+
+import java.io.File;
 import java.io.FileInputStream;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 
-import org.apache.tomcat.jni.File;
 import org.apache.tomcat.util.http.fileupload.ByteArrayOutputStream;
 
-public class Problem_upload {
+public class Solve_upload {
 	
 
 	static private Connection conn = null;
@@ -42,11 +43,9 @@ public class Problem_upload {
 		return ""; //데이터베이스 오류
 	}
 	
-	public static void write(int bbsID, String userID, String questionSource, String questionYear, String questionMonth, String questionType, 
-			String questionSubject, String questionNumber, int questionCorrect, String questionAnswer, String filepath) { 
-		String SQL = "INSERT INTO BBS_PROBLEM VALUE (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)"; 
+	public static void write(int bbsID, String bbsTitle, String userID, String bbsContent, int problemID, String filepath) { 
+		String SQL = "INSERT INTO BBS_SOLVE VALUE (?, ?, ?, ?, ?, ?, ?, ?)"; 
 		try {
-			System.out.println(getDate());
 
 			pstmt = conn.prepareStatement(SQL);
 			//image to byte
@@ -64,18 +63,13 @@ public class Problem_upload {
 			bout.close();
 		
 			pstmt.setInt(1, bbsID); 
-			pstmt.setString(2, userID); 
-			pstmt.setString(3, getDate()); 
-			pstmt.setInt(4, 1); 
-			pstmt.setString(5, questionSource); 
-			pstmt.setString(6, questionYear);
-			pstmt.setString(7, questionMonth);
-			pstmt.setString(8, questionType);
-			pstmt.setString(9, questionSubject);
-			pstmt.setString(10, questionNumber);
-			pstmt.setInt(11, questionCorrect); 
-			pstmt.setString(12, questionAnswer);
-			pstmt.setBytes(13, imageData);
+			pstmt.setString(2, bbsTitle); 
+			pstmt.setString(3, userID); 
+			pstmt.setString(4, getDate()); 
+			pstmt.setString(5, bbsContent); 
+			pstmt.setInt(6, 1);
+			pstmt.setInt(7, problemID);
+			pstmt.setBytes(8, imageData);
 			
 			pstmt.executeUpdate();
 			pstmt.close();
@@ -90,37 +84,15 @@ public class Problem_upload {
 	public static void main(String[] args) {
 		String Imagepath = "WebContent/problem_images/1 2018 11 0 확통 18 42 003.JPG";
 		
-		File f = new File(Imagepath);
-		System.out.println(f.isDirectory()); 
-		System.out.println(f.isFile()); 
-		String path = "";
-		String filename = "";
-		path = f.getParentFile().toString();
-		filename = f.getName();
-		filename = filename.substring(0, filename.length()-4);
-		System.out.println(filename);
-		String[] file_array = filename.split(" ");
-		/*
-		for(int i=0; i<file_array.length; i++) {
-			System.out.println(file_array[i]);
-		}
-		*/
 		int bbsID = 1; 
+		String bbsTitle = "내맘대로";
 		String userID = "top321902";
-		String questionSource = file_array[0];
-		String questionYear = file_array[1];
-		String questionMonth = file_array[2];
-		String questionType = file_array[3];
-		String questionSubject = file_array[4];
-		String questionNumber = file_array[5];
-		int questionCorrect = Integer.parseInt(file_array[6]);
-		String questionAnswer = file_array[7];
-		String filepath = Imagepath ;
+		String bbsContent = "내맘대로2";
+		int problemID = 1;
 		
 		open();
-		write(bbsID, userID, questionSource, questionYear, questionMonth, questionType,
-			  questionSubject, questionNumber, questionCorrect, questionAnswer, filepath);
-			  
+		write(bbsID, bbsTitle, userID, bbsContent, problemID, Imagepath);
+		
 		System.out.println("upload complete");
 
 	}

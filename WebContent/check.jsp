@@ -1,6 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=utf-8"
     pageEncoding="utf-8"%>
 <%@ page import="java.io.PrintWriter" %>
+<%@ page import="bbs_problem.Bbs_problem" %>
+<%@ page import="bbs_problem.Bbs_problemDAO" %>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -32,6 +35,33 @@
 		if(session.getAttribute("userID") != null){
 			userID = (String) session.getAttribute("userID");
 		}
+		
+		String answer = null;
+		if(request.getParameter("answer") != null){
+			answer = request.getParameter("answer");
+			switch(answer.length()){
+			case 1: 
+				answer = "00" + answer; 
+				break;
+			case 2:
+				answer = "0" + answer;
+				break;
+			}
+		}
+		if(answer == null){
+			PrintWriter script = response.getWriter();
+			script.println("<script>");
+			script.println("alert('정답을 입력해주세요.')");
+			script.println("history.back()");
+			script.println("</script>");
+		}
+		
+		int problemID = Integer.parseInt(request.getParameter("problemID"));
+		Bbs_problem bbs_problem = new Bbs_problemDAO().getBbs_problem(problemID); 
+		
+		String isTrue = null;
+		if (answer.equals(bbs_problem.getQuestionAnswer())){isTrue = "정답";}
+		else { isTrue = "오답";}
 	%>
 	<nav class="navbar navbar-default">
 		<div class="navbar-header">
@@ -84,22 +114,40 @@
 		</div>
 	</nav>
 	
-	<div id="main-container">
-		<div class="jumbotron">
+	<div id="container">
+		<div >
 			<div id="main-container-in-container">
-				<h2 style="line-height:1.0; margin-bottom:0">수학 학습 사이트</h2>
-				<h1 style="margin-top:0">Null</h1> 
-				<br>
-				<br>
-				<p style="font-weight:bold; margin-bottom:0">학습</p>
-				<p>모의고사, 학교기출, 사설문제 등을 웹상으로 학습할 수 있습니다.</p>
-				<p style="font-weight:bold; margin-bottom:0">등록</p>
-				<p>모르는 문제를 물어보세요. 누군가 풀어주겠죠?</p>
-				<p style="font-weight:bold; margin-bottom:0">게시판</p>
-				<p>게시판ㅇㅇ</p> 
+				<h1 style="margin-top:0"><%= isTrue%></h1> 
+				<div style="height:100%; text-align:center; padding-top:0">
+					<% 
+					if(isTrue == "오답") { 
+					%>
+						<p>
+							<input type="button" value="정답 확인하기" onclick="show()">
+						<a href="view_problem.jsp?bbsID=<%= problemID%>">다시 풀어보기</a>
+						</p>
+						
+						<p id="ans" style="display:none">
+							<%= answer %>
+						</p>
+					<%
+						} 
+					%>
+				</div>
+
+			</div>
+			<div style="text-align:right; padding-right:50px">
+				<a href="solve.jsp?bbsID=<%= problemID%>" class="btn btn-primary" >해설 바로가기</a>
+				<a href="study.jsp" class="btn btn-primary" >다른 문제 풀어보기</a>
 			</div>
 		</div>
 	</div>
+	<script>
+		function show(){
+			var obj = document.getElementById("ans");
+			obj.style.display="block";
+		}
+	</script>
 	<script src="http://code.jquery.com/jquery-3.1.1.min.js"></script>
 	<script src="js/bootstrap.js"></script>
 </body>
