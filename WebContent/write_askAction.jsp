@@ -6,10 +6,10 @@
     pageEncoding="UTF-8"%>
 <%@ page import="bbs_ask.Bbs_askDAO" %>
 <%@ page import="java.io.PrintWriter" %>
+<%@page import="org.apache.commons.io.FileUtils"%>
 <% request.setCharacterEncoding("UTF-8"); %>
 <jsp:useBean id="bbs_ask" class="bbs_ask.Bbs_ask" scope="page" />
 <jsp:setProperty name="bbs_ask" property="bbsTitle"/>
-<!-- 유저아이디를 받아서 넣어줌 -->
 <jsp:setProperty name="bbs_ask" property="bbsContent"/>
 <jsp:setProperty name="bbs_ask" property="bbsImage"/>
 
@@ -33,29 +33,68 @@
 			script.println("</script>");
 		}
 		else {
-			String savePath = request.getRealPath("/uploadFile");
+			//왜 bbs_ask.getBbsContent()로 값이 안받아지지?
+			String bbsTitle = null;
+			String bbsContent = null;
+			String uploadFolder = "/uploadFile";
+			
+			String savePath = application.getRealPath(uploadFolder);
 			
 			int maxSize = 1024 * 1024 * 10;
 			
-			//제목 파일 내용
-			String bbsTitle = "";
-			String bbsContent = "";
+
 			
 			
 			MultipartRequest multi = null;
+			File file = null;
+		    
+			multi = new MultipartRequest(request, savePath, maxSize, "utf-8", new DefaultFileRenamePolicy());
+			
+			bbsTitle = multi.getParameter("bbsTitle");
+			bbsContent = multi.getParameter("bbsContent");
+			
+			if(bbsTitle == null || bbsContent == null){		
+				//TODO 이미지 필수로 넣는 기능
+				PrintWriter script = response.getWriter();
+				script.println("<script>");
+				script.println("alert('입력이 안된 사항이 있습니다.')");
+				script.println("history.back()");
+				script.println("</script>");
+				
+			} else{
+			
+			
+			//제목 파일 내용
+
 			try{
-				multi = new MultipartRequest(request, savePath, maxSize, "utf-8", new DefaultFileRenamePolicy());
-				
-				bbsTitle = multi.getParameter("bbsTitle");
-				bbsContent = multi.getParameter("bbsContent");
-				
 				String fileName = multi.getFilesystemName("bbsImage");
 				
-				String bbsImageFullPath = savePath + "/" + fileName; //DB저장용
-				System.out.print(bbsTitle+" " +bbsContent+" "+ fileName);
 				
+				file = multi.getFile("bbsImage");
+				
+				byte[] buf = FileUtils.readFileToByteArray(file); 
+
+				Bbs_askDAO bbs_askDAO = new Bbs_askDAO();
+				int result = bbs_askDAO.write(bbsTitle, userID, bbsContent, buf);
+				System.out.println(result);
+				if (result == -1){  //오류
+					PrintWriter script = response.getWriter();
+					script.println("<script>");
+					script.println("alert('글쓰기에 실패했습니다.')");
+					script.println("history.back()");
+					script.println("</script>");
+					//아이디가 primary key이므로 똑같은거 입력되면 오류반환
+				}
+				else{
+					PrintWriter script = response.getWriter();
+					script.println("<script>");
+					script.println("alert('글쓰기 성공.')");
+					script.println("location.href = 'bbs_ask.jsp'");
+					script.println("</script>");
+				}
 			} catch(Exception e){
 				e.printStackTrace();
+			}
 			}
 			/*
 			if(bbs_ask.getBbsTitle() == null || bbs_ask.getBbsContent() == null || bbs_ask.getBbsImage() == null){

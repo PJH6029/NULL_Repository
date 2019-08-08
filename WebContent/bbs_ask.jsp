@@ -124,7 +124,7 @@ SHOW TABLES를 통해서 데이터 베이스들이 무엇이 있는지 확인 �
 					%>
 					<tr>
 						<td><%= list.get(i).getBbsID() %></td>
-						<td><a href="view.jsp?bbsID=<%= list.get(i).getBbsID() %>"> <%= list.get(i).getBbsTitle().replaceAll(" ", "&nbsp;").replaceAll("<","&lt;").replaceAll("<", "&gt;").replaceAll("\n", "<br>") %></a></td>
+						<td><a href="view_ask.jsp?bbsID=<%= list.get(i).getBbsID() %>"> <%= list.get(i).getBbsTitle().replaceAll(" ", "&nbsp;").replaceAll("<","&lt;").replaceAll("<", "&gt;").replaceAll("\n", "<br>") %></a></td>
 						<td><%= list.get(i).getUserID() %></td>
 						<td><%= list.get(i).getBbsDate().substring(0, 11) +  list.get(i).getBbsDate().substring(11, 13) + "시" + list.get(i).getBbsDate().substring(14, 16) + "분"%></td>
 					</tr>
@@ -136,11 +136,11 @@ SHOW TABLES를 통해서 데이터 베이스들이 무엇이 있는지 확인 �
 			<%
 				if(pageNumber != 1) {
 			%>
-				<a href="bbs.jsp?pageNumber=<%=pageNumber - 1 %>" class="btn btn-sucess btn-arrow-left">이전</a>
+				<a href="bbs_ask.jsp?pageNumber=<%=pageNumber - 1 %>" class="btn btn-sucess btn-arrow-left">이전</a>
 			<%	
 				} if(bbs_askDAO.nextPage(pageNumber + 1)){
 			%>
-				<a href="bbs.jsp?pageNumber=<%=pageNumber + 1 %>" class="btn btn-sucess btn-arrow-left">다음</a> <!-- arrow: 화살표 , 10:31-->
+				<a href="bbs_ask.jsp?pageNumber=<%=pageNumber + 1 %>" class="btn btn-sucess btn-arrow-left">다음</a> <!-- arrow: 화살표 , 10:31-->
 			<%
 				}
 			%>

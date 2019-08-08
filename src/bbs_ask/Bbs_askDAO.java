@@ -38,7 +38,7 @@ public class Bbs_askDAO {
 	}
 	
 	public int getNext() {
-		String SQL = "SELECT bbsID FROM BBS ORDER BY bbsID DESC"; //마지막 글의 번호가져오는 것
+		String SQL = "SELECT bbsID FROM BBS_ASK ORDER BY bbsID DESC"; //마지막 글의 번호가져오는 것
 		try {
 			PreparedStatement pstmt = conn.prepareStatement(SQL);
 			rs = pstmt.executeQuery();
@@ -52,8 +52,8 @@ public class Bbs_askDAO {
 		return -1; //데이터베이스 오류
 	}
 	
-	public int write(String bbsTitle, String userID, String bbsContent) { //게시글넣는 함수
-		String SQL = "INSERT INTO BBS VALUE (?, ?, ?, ?, ?, ?)"; 
+	public int write(String bbsTitle, String userID, String bbsContent, byte[] buf) { //게시글넣는 함수
+		String SQL = "INSERT INTO BBS_ASK VALUE (?, ?, ?, ?, ?, ?, ?)"; 
 		try {
 			PreparedStatement pstmt = conn.prepareStatement(SQL);
 			pstmt.setInt(1, getNext()); 
@@ -62,6 +62,7 @@ public class Bbs_askDAO {
 			pstmt.setString(4, getDate()); 
 			pstmt.setString(5, bbsContent); 
 			pstmt.setInt(6, 1); 
+			pstmt.setBytes(7, buf);
 			return pstmt.executeUpdate();
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -70,7 +71,7 @@ public class Bbs_askDAO {
 	}
 	
 	public ArrayList<Bbs_ask> getList(int pageNumber) { // 10개만 출력해서 보여줌
-		String SQL = "SELECT * FROM BBS WHERE bbsID < ? AND bbsAvailable = 1 ORDER BY bbsID DESC LIMIT 10"; 
+		String SQL = "SELECT * FROM BBS_ASK WHERE bbsID < ? AND bbsAvailable = 1 ORDER BY bbsID DESC LIMIT 10"; 
 		ArrayList<Bbs_ask> list = new ArrayList<Bbs_ask>();
 		try {
 			PreparedStatement pstmt = conn.prepareStatement(SQL);
@@ -93,7 +94,7 @@ public class Bbs_askDAO {
 	}
 	
 	public boolean nextPage(int pageNumber) { //다음페이지 관리
-		String SQL = "SELECT * FROM BBS WHERE bbsID < ? AND bbsAvailable = 1 ORDER BY bbsID DESC LIMIT 10"; 
+		String SQL = "SELECT * FROM BBS_ASK WHERE bbsID < ? AND bbsAvailable = 1 ORDER BY bbsID DESC LIMIT 10"; 
 		try {
 			PreparedStatement pstmt = conn.prepareStatement(SQL);
 			pstmt.setInt(1, getNext() - (pageNumber - 1) * 10); // 페이지 번호지정
@@ -109,7 +110,7 @@ public class Bbs_askDAO {
 	}
 	
 	public Bbs_ask getBbs_ask(int bbsID) {
-		String SQL = "SELECT * FROM BBS WHERE bbsID = ?"; 
+		String SQL = "SELECT * FROM BBS_ASK WHERE bbsID = ?"; 
 		try {
 			PreparedStatement pstmt = conn.prepareStatement(SQL);
 			pstmt.setInt(1, bbsID);
@@ -130,8 +131,9 @@ public class Bbs_askDAO {
 		return null;
 		
 	}
+	//추후 구현
 	public int update(int bbsID, String bbsTitle, String bbsContent) {
-		String SQL = "UPDATE BBS SET bbsTitle = ?, bbsContent = ? WHERE bbsID = ?"; 
+		String SQL = "UPDATE BBS_ASK SET bbsTitle = ?, bbsContent = ? WHERE bbsID = ?"; 
 		try {
 			PreparedStatement pstmt = conn.prepareStatement(SQL);
 			pstmt.setString(1, bbsTitle); 
@@ -145,7 +147,7 @@ public class Bbs_askDAO {
 	}
 	
 	public int delete (int bbsID) {
-		String SQL = "UPDATE BBS SET bbsAvailable = 0 WHERE bbsID = ?"; //available 을 0으로 만들어서 눈에 안보이게. 데이터자체는 남아있음
+		String SQL = "UPDATE BBS_ASK SET bbsAvailable = 0 WHERE bbsID = ?"; //available 을 0으로 만들어서 눈에 안보이게. 데이터자체는 남아있음
 		try {
 			PreparedStatement pstmt = conn.prepareStatement(SQL);
 			pstmt.setInt(1, bbsID);

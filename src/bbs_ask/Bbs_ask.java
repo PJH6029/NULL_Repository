@@ -7,7 +7,8 @@ public class Bbs_ask {
 	private String bbsDate;
 	private String bbsContent;
 	private int bbsAvailable;
-	private String bbsImage;
+	private byte[] bbsImage;
+	
 	
 	public int getBbsID() {
 		return bbsID;
@@ -45,11 +46,12 @@ public class Bbs_ask {
 	public void setBbsAvailable(int bbsAvailable) {
 		this.bbsAvailable = bbsAvailable;
 	}
-	public String getBbsImage() {
+	public byte[] getBbsImage() {
 		return bbsImage;
 	}
-	public void setBbsImage(String bbsImage) {
+	public void setBbsImage(byte[] bbsImage) {
 		this.bbsImage = bbsImage;
 	}
-
+	
+	
 }

@@ -32,8 +32,14 @@
 			script.println("</script>");
 		}
 		Bbs_ask bbs_ask = new Bbs_askDAO().getBbs_ask(bbsID); // 정보를 bbs인스턴스에 넣음
-		
-		
+		String imgPath = null;
+		String contextPath = request.getContextPath();
+		imgPath = contextPath + bbs_ask.getBbsImageRelativePath();
+		String imgRealPath = bbs_ask.getBbsImageRealPath();
+		System.out.println(imgPath);
+		System.out.println(imgRealPath);
+		System.out.println(imgRealPath.equals("C:\\Users\\parkjunghun\\Desktop\\NULL\\.metadata\\.plugins\\org.eclipse.wst.server.core\\tmp1\\wtpwebapps\\NULL\\uploadFile\\picture.JPG"));
+
 	%>
 	<nav class="navbar navbar-default"> 
 		<div class="navbar-header"> 
@@ -109,6 +115,20 @@
 					<tr>
 						<td>작성일자</td>
 						<td colspan="2"><%= bbs_ask.getBbsDate().substring(0, 11) +  bbs_ask.getBbsDate().substring(11, 13) + "시" + bbs_ask.getBbsDate().substring(14, 16) + "분" %></td>
+					</tr>
+					<tr>
+						<td>이미지</td>
+						<td colspan="2" style="min-height: 200px; text-align: left;">
+						<img src="uploadFile/picture.jpg"/>
+						</td>
+						<!-- 특수문자->스크립트 삽입 방지 -->
+					</tr>
+					<tr>
+						<td>이미지</td>
+						<td colspan="2" style="min-height: 200px; text-align: left;">
+						<img src="C:\Users\parkjunghun\Desktop\NULL\.metadata\.plugins\org.eclipse.wst.server.core\tmp1\wtpwebapps\NULL\uploadFile\picture.JPG"/>
+						</td>
+						<!-- 특수문자->스크립트 삽입 방지 -->
 					</tr>
 					<tr>
 						<td>내용</td>

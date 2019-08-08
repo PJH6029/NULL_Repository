@@ -13,7 +13,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>JSP 게시판 웹사이트</title>
+<title>Null</title>
 </head>
 <body>
 	<%
@@ -36,6 +36,12 @@
 					script.println("history.back()");
 					script.println("</script>");
 				} else{
+					/*
+					System.out.println(bbs.getBbsTitle());
+					System.out.println(bbs.getBbsID());
+					System.out.println(bbs.getUserID());
+					System.out.println(bbs.getBbsContent());
+					*/
 					BbsDAO bbsDAO = new BbsDAO();
 					int result = bbsDAO.write(bbs.getBbsTitle(), userID, bbs.getBbsContent());
 					

@@ -79,7 +79,7 @@
 	</nav>
 	<div class="container">
 		<div class="row">
-		<form method="post" action="write_askAction.jsp"> <!-- 그안에거를 서버로 전송 -->
+		<form method="post" action="write_askAction.jsp" enctype="multipart/form-data"> <!-- 그안에거를 서버로 전송 -->
 			<table class="table table-striped" style="text-align: center; border: 1px solid #dddddd">
 				<thead>
 					<tr> <!-- row->행 -->
@@ -88,14 +88,14 @@
 				</thead>
 				<tbody>
 					<tr>
-						<td><input type="text" class="form-control" placeholder="글 제목" name="bbsTitle" maxlength="50"></td>
+						<td><input type="text" class="form-control" placeholder="글 제목" name="bbsTitle" maxlength="50" required></td>
 					</tr>
 					<tr>
-						<td><input type="file" class="form-control" placeholder="파일" name="bbsImage" ></td>
+						<td><input type="file" class="form-control" placeholder="파일" name="bbsImage" id="image" required></td>
 					</tr>
 					<tr>
 						<!-- textarea: 장문글 작성 -->
-						<td><textarea class="form-control" placeholder="글 내용" name="bbsContent" maxlength="2048" style="height: 350px;"></textarea></td>
+						<td><textarea class="form-control" placeholder="글 내용" name="bbsContent" maxlength="2048" style="height: 350px;" required></textarea></td>
 					</tr>
 				</tbody>
 			</table>
@@ -103,6 +103,7 @@
 		</form>
 		</div>
 	</div>
+	
 	<script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
 	<script src="js/bootstrap.js"></script>
 
