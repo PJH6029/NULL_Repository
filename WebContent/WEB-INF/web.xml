@@ -41,4 +41,14 @@
   <servlet-name>Image_Viewer_for_Solve</servlet-name> 
   <url-pattern>/Image_Viewer_for_Solve</url-pattern>  
   </servlet-mapping>
+  
+  <servlet>
+  <servlet-name>Image_Viewer_for_Ask</servlet-name> 
+  <servlet-class>bbs_ask.Image_Viewer_for_Ask</servlet-class> 
+  </servlet>
+  
+  <servlet-mapping>
+  <servlet-name>Image_Viewer_for_Ask</servlet-name> 
+  <url-pattern>/Image_Viewer_for_Ask</url-pattern>  
+  </servlet-mapping>
 </web-app>

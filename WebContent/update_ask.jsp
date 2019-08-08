@@ -1,16 +1,15 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ page import="java.io.PrintWriter" %>
-<%@ page import="bbs_ask.Bbs_ask" %>
-<%@ page import="bbs_ask.Bbs_askDAO" %>
-
+<%@ page import="bbs.Bbs" %>
+<%@ page import="bbs.BbsDAO" %>
 <!DOCTYPE html>
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta name="viewport" content="width=device-width" initial-scale="1">
 <link rel="stylesheet" href="css/bootstrap.css">
-<title>Null</title>
+<title>JSP 게시판 웹사이트</title>
 </head>
 
 <!-- available 0이면 삭제된거 1이면 안된거 -->
@@ -20,7 +19,7 @@
 		if (session.getAttribute("userID") != null){
 			userID = (String) session.getAttribute("userID");
 		}
-		if(userID == null) {
+		if(userID == null){
 			PrintWriter script = response.getWriter();
 			script.println("<script>");
 			script.println("alert('로그인을 하세요.')");
@@ -38,9 +37,14 @@
 			script.println("location.href='bbs.jsp'");
 			script.println("</script>");
 		}
-		Bbs_ask bbs_ask = new Bbs_askDAO().getBbs_ask(bbsID); // 정보를 bbs인스턴스에 넣음
-		//String contextPath = request.getContextPath();
-
+		Bbs bbs = new BbsDAO().getBbs(bbsID);
+		if (!userID.equals(bbs.getUserID())){
+			PrintWriter script = response.getWriter();
+			script.println("<script>");
+			script.println("alert('권한이 없습니다.')");
+			script.println("location.href='login.jsp'");
+			script.println("</script>");
+		}
 	%>
 	<nav class="navbar navbar-default"> 
 		<div class="navbar-header"> 
@@ -58,29 +62,9 @@
 			<ul class="nav navbar-nav">
 				<li><a href="main.jsp">메인</a></li>
 				<li><a href="study.jsp">학습</a></li>
-				<li class="active"><a href="bbs_ask.jsp">등록</a></li>	
-				<li><a href="bbs.jsp">게시판</a></li>	
+				<li><a href="bbs_ask.jsp">등록</a></li>
+				<li class="active"><a href="bbs.jsp">게시판</a></li>
 			</ul>
-			<%
-				if(userID == null){ // 로그인 되어있지 않다면?
-			%>	
-			<ul class="nav navbar-nav navbar-right">
-				<li class="dropdown">
-					<a href="#" class="dropdown-toggle"
-						data-toggle="dropdown" role="button" aria-haspopup="true"
-						aria-expanded="false">접속하기<span class="caret"></span></a>
-						<!-- span: 아이콘같은거 -->
-					<ul class="dropdown-menu">
-						<li><a href="login.jsp">로그인</a></li>
-						<!--  active: 현재 선택이 됨 -->
-						<li><a href="join.jsp">회원가입</a></li>
-						<!--  드롭다운 안되는 이유? -->
-					</ul>
-				</li>
-			</ul>
-			<%
-				} else {
-			%>
 			<ul class="nav navbar-nav navbar-right">
 				<li class="dropdown">
 					<a href="#" class="dropdown-toggle"
@@ -93,55 +77,29 @@
 					</ul>
 				</li>
 			</ul>
-			<%
-				}
-			%>
 		</div>
 	</nav>
 	<div class="container">
 		<div class="row">
+		<form method="post" action="updateAction.jsp?bbsID=<%= bbsID %>"> <!-- 그안에거를 서버로 전송 -->
 			<table class="table table-striped" style="text-align: center; border: 1px solid #dddddd">
 				<thead>
 					<tr> <!-- row->행 -->
-						<th colspan="3" style="background-color: #eeeeee; text-align: center;">게시판 보기 양식</th>
+						<th colspan="2" style="background-color: #eeeeee; text-align: center;">게시판 글 수정 양식</th>
 					</tr>
 				</thead>
 				<tbody>
 					<tr>
-						<td style="width: 20%;">글 제목</td>
-						<td colspan="2"><%= bbs_ask.getBbsTitle().replaceAll(" ", "&nbsp;").replaceAll("<","&lt;").replaceAll("<", "&gt;").replaceAll("\n", "<br>") %></td>
+						<td><input type="text" class="form-control" placeholder="글 제목" name="bbsTitle" maxlength="50" value="<%= bbs.getBbsTitle() %>"></td>
 					</tr>
 					<tr>
-						<td>작성자</td>
-						<td colspan="2"><%= bbs_ask.getUserID() %></td>
+						<!-- textarea: 장문글 작성 -->
+						<td><textarea class="form-control" placeholder="글 내용" name="bbsContent" maxlength="2048" style="height: 350px;"><%= bbs.getBbsContent() %></textarea></td>
 					</tr>
-					<tr>
-						<td>작성일자</td>
-						<td colspan="2"><%= bbs_ask.getBbsDate().substring(0, 11) +  bbs_ask.getBbsDate().substring(11, 13) + "시" + bbs_ask.getBbsDate().substring(14, 16) + "분" %></td>
-					</tr>
-					<tr>
-						<td>이미지</td>
-						<td colspan="2"><img src="/NULL/Image_Viewer_for_Ask?bbsID=<%=bbsID%>"/></td>
-						<!-- 특수문자->스크립트 삽입 방지 -->
-					</tr>
-					<tr>
-						<td>내용</td>
-						<td colspan="2" style="min-height: 200px; text-align: left;"><%= bbs_ask.getBbsContent().replaceAll(" ", "&nbsp;").replaceAll("<","&lt;").replaceAll("<", "&gt;").replaceAll("\n", "<br>") %></td>
-						<!-- 특수문자->스크립트 삽입 방지 -->
-					</tr>
-					
 				</tbody>
 			</table>
-			<a href="bbs_ask.jsp" class="btn btn-primary">목록</a>
-			<%
-				if(userID != null && userID.equals(bbs_ask.getUserID())){
-			%>	
-					<a href="update_ask.jsp?bbsID=<%= bbsID %>" class="btn btn-primary">수정</a>
-					<a onclick="return confirm('정말로 삭제하시겠습니까?')"href="delete_askAction.jsp?bbsID=<%= bbsID %>" class="btn btn-primary">삭제</a>
-			
-			<%	
-				}
-			%>
+			<input type="submit" class="btn btn-primary pull-right" value="글수정">
+		</form>
 		</div>
 	</div>
 	<script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
