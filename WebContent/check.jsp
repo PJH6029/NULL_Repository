@@ -124,7 +124,7 @@
  
 
 				<h1 style="margin: 0 auto"><%= isTrue%></h1> 
-				<div style="vertical-align :middle; text-align:center; padding-top:0
+				<div style="vertical-align :middle; text-align:center; padding-top:0;position: absolute; top: 50%; trasform: transLateY(-50%); right:40%; trasform: transLateX(-50%) ;
 				">
 				
 					<% 
@@ -137,7 +137,7 @@
 						</p>
 						
 						<p id="ans" style="display:none">
-							<%= bbs_problem.getQuestionAnswer() %>
+						<%= bbs_problem.getQuestionAnswer() %>
 						
 						 
 					<%
@@ -146,8 +146,8 @@
 				</div>
 
 
-			<div style= "vertical-align : bottom; text-align:right; padding-right:50px">
-				<a href="solve.jsp?bbsID=<%= problemID%>" class="btn btn-primary" >해설 바로가기</a>
+			<div style= "text-align:right; padding-right:50px; position: absolute ; bottom: 0px; right : 0px" >
+		<a href="solve.jsp?bbsID=<%= problemID%>" class="btn btn-primary" >해설 바로가기</a>
 				<a href="study.jsp" class="btn btn-primary" >다른 문제 풀어보기</a>
 			</div>
 		</div>
