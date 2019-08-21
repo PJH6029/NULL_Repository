@@ -76,7 +76,6 @@
 		</div>
 		<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 			<ul class="nav navbar-nav">
-				<li><a href="main.jsp">메인</a></li>
 				<li class="active"><a href="study.jsp">학습</a></li>
 				<li><a href="bbs_ask.jsp">등록</a></li>	
 				<li><a href="bbs.jsp">게시판</a></li>		
@@ -147,7 +146,7 @@
 
 
 			<div style= "text-align:right; padding-right:50px; position: absolute ; bottom: 0px; right : 0px" >
-		<a href="solve.jsp?bbsID=<%= problemID%>" class="btn btn-primary" >해설 바로가기</a>
+				<a href="solve.jsp?bbsID=<%= problemID%>" class="btn btn-primary" >해설 바로가기</a>
 				<a href="study.jsp" class="btn btn-primary" >다른 문제 풀어보기</a>
 			</div>
 		</div>
