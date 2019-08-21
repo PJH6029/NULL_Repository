@@ -76,7 +76,6 @@
 		</div>
 		<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 			<ul class="nav navbar-nav">
-				<li><a href="main.jsp">메인</a></li>
 				<li class="active"><a href="study.jsp">학습</a></li>
 				<li><a href="bbs_ask.jsp">등록</a></li>	
 				<li><a href="bbs.jsp">게시판</a></li>		
