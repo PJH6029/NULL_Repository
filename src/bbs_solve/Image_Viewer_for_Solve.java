@@ -3,7 +3,7 @@ package bbs_solve;
 /*
  서블렛 만들면
  1. web.xml 잡아주기
- 2. 주소는 /(컨테스트 패스)/(url-pattern)
+ 2. 주소는 /(컨테스트 패스)/(url-pattern)  
  */
 import java.io.IOException;
 import java.io.InputStream;
