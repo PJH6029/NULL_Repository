@@ -17,9 +17,9 @@ public class Bbs_problemDAO {
 	
 	public Bbs_problemDAO() {
 		try {
-			String dbURL = "jdbc:mysql://localhost:3306/NULL2?serverTimezone=UTC";
-			String dbID = "root";
-			String dbPassword = "dhkd6029";
+			String dbURL = "jdbc:mysql://localhost/null4jeil?serverTimezone=UTC";
+			String dbID = "null4jeil";
+			String dbPassword = "null4null";
 			Class.forName("com.mysql.cj.jdbc.Driver");
 			conn = DriverManager.getConnection(dbURL, dbID, dbPassword);
 		} catch(Exception e) {
@@ -170,7 +170,7 @@ public class Bbs_problemDAO {
 	}
 	
 	public Bbs_problem getBbs_problem(int bbsID) {
-		String SQL = "SELECT * FROM BBS_PROBLEM WHERE bbsID = ?"; 
+		String SQL = "SELECT * FROM bbs_problem WHERE bbsID = ?"; 
 		try {
 			PreparedStatement pstmt = conn.prepareStatement(SQL);
 			pstmt.setInt(1, bbsID);

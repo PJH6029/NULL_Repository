@@ -33,12 +33,14 @@ public class Image_Viewer extends HttpServlet {
 		ResultSet rs = null;
 		ServletOutputStream out = null;
 		String jdbc_driver = "com.mysql.cj.jdbc.Driver";
-		String db_url = "jdbc:mysql://localhost:3306/NULL2?serverTimezone=UTC";
-
+		String dbURL = "jdbc:mysql://localhost/null4jeil?serverTimezone=UTC";
+		String dbID = "null4jeil";
+		String dbPassword = "null4null";
+		
 		InputStream is = null;
 		try {
 			Class.forName(jdbc_driver);
-			conn = DriverManager.getConnection(db_url, "root", "dhkd6029");
+			conn = DriverManager.getConnection(dbURL, dbID, dbPassword);
 
 			pstmt = conn.prepareStatement("SELECT questionImage FROM bbs_problem where bbsID = ?");
 			pstmt.setInt(1, bbsID);

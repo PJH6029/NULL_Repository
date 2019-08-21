@@ -20,9 +20,9 @@ public class Solve_upload {
 	
 	public static void open() {
 		try {
-			String dbURL = "jdbc:mysql://localhost:3306/NULL2?serverTimezone=UTC";
-			String dbID = "root";
-			String dbPassword = "dhkd6029";
+			String dbURL = "jdbc:mysql://localhost/null4jeil?serverTimezone=UTC";
+			String dbID = "null4jeil";
+			String dbPassword = "null4null";
 			Class.forName("com.mysql.cj.jdbc.Driver");
 			conn = DriverManager.getConnection(dbURL, dbID, dbPassword);
 		} catch(Exception e) {
@@ -45,7 +45,7 @@ public class Solve_upload {
 	}
 	
 	public static void write(int bbsID, String bbsTitle, String userID, String bbsContent, int problemID, String filepath) { 
-		String SQL = "INSERT INTO BBS_SOLVE VALUE (?, ?, ?, ?, ?, ?, ?, ?)"; 
+		String SQL = "INSERT INTO bbs_solve VALUE (?, ?, ?, ?, ?, ?, ?, ?)"; 
 		try {
 
 			pstmt = conn.prepareStatement(SQL);
